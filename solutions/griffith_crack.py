@@ -10,7 +10,10 @@
 # section 2 (The 2D model)
 
 import numpy as np
-# solution for displacement and stresses  around a Griffith crack ....
+
+
+    
+# solution for displacement and stresses  around a mode I Griffith crack ....
 def Z_griffith(z,a=1,sig=1):
     return sig*(1/np.sqrt(1-(a/z)**2)-1)
 
