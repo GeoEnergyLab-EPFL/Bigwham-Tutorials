@@ -1,4 +1,4 @@
-# Verification tests for Elastic crack problems
+# Verification examples for the solution of Elastic crack problems with BigWham
 ### ROADMAP
 
 - OK -> script exists and is in the repo already
