@@ -31,6 +31,9 @@
 #  
 import numpy as np
 
+def width(r_corr,R=1,sig=1.,G=1.,nu=0.25):
+    return (4*sig*(1-nu)/(np.pi*G))*np.sqrt(R*R-r_corr*r_corr)
+
 def pi_():
     return np.pi
 
