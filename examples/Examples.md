@@ -12,8 +12,9 @@
  + Griffith crack under remote tension
     - Displacement discontinuities from loading + convergence with 2DP0  [OK]  
     - Induced Stresses & displacements around an uniformly loaded crack  [OK]
-    - Comparison 2DP0 and 2DP1 (convergence) [TBF]  
-    - unstructured mesh and robustness 2DP0 vs 2DP1 [TBD]  
+    - Comparison 2DP0 and 2DP1 (convergence) [OK]  
+    - unstructured mesh and robustness 2DP0 vs 2DP1 [OK]  
+    - Simplified 3D P0 kernel test [OK] but not as jupytert
  + Dugdale-Barenblatt crack (remote tension)
     - displacement discontinuity from loading [TBF] - ratul
     - unstructured mesh and robustness 2DP0 vs 2DP1 [TBD]  

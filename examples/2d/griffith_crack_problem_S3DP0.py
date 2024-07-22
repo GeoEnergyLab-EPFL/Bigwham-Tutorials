@@ -17,7 +17,7 @@ E = (2 * G) * (1 + nu)
 
 # %% function encapsulating the solution !
 
-def solveGriffith(nelts,a=1,kernel = "2DP0-H"):
+def solveGriffith(nelts,a=1,frac_heighth=1000.):
     """Wrapper function to solve the Griffith problem with a given number of elements + element type"""
     coor1D = np.linspace(-a, a, nelts + 1)
     coor = np.transpose(np.array([coor1D, coor1D * 0.0]))
@@ -26,7 +26,8 @@ def solveGriffith(nelts,a=1,kernel = "2DP0-H"):
     max_leaf_size=100
     eta=2.
     eps_aca=1.e-5
-    elas_prop = np.array([E, nu])
+    elas_prop = np.array([E, nu,frac_heighth])
+    kernel = "S3DP0-H"
     h = BEMatrix(kernel, coor, conn, elas_prop, max_leaf_size, eta, eps_aca)
     t = np.ones(h.shape[0])
     t[0::2] = 0.
@@ -37,13 +38,7 @@ def solveGriffith(nelts,a=1,kernel = "2DP0-H"):
     col_pts = h.getMeshCollocationPoints()
     x_coor_=col_pts[:,0]
     # Crack opening displacement discontinuity from analytical solution 
-    # note that 2DP1 segment have their solution at nodes.... 
-    # note that 2DP1 segment have displacement disconinuity at element vertex for each element
-    if (kernel =="2DP1-H"):
-        x_coor_ = np.ones(2*nelts)
-        for e in range(nelts):
-            x_coor_[e*2:e*2+2]=coor1D[conn[e]]
-    
+   
     w_true=width_griffith(x_coor_,a=1,sig=1,G=1,nu=0.25)
     rmse = np.sqrt((np.sum(dd[:,1]-w_true)**2)/(w_true.size))
     l2rel = (np.linalg.norm((dd[:,1]-w_true)))/(np.linalg.norm(w_true))
@@ -51,7 +46,7 @@ def solveGriffith(nelts,a=1,kernel = "2DP0-H"):
 
 
 # %%
-col_pts,dd_sol,w_true,rmse,l2rel = solveGriffith(30,a=1,kernel="2DP0-H")
+col_pts,dd_sol,w_true,rmse,l2rel = solveGriffith(30,a=1)
 
 import matplotlib.pyplot as plt
 plt.plot(col_pts[:, 0], dd_sol[:,1], "-*")
