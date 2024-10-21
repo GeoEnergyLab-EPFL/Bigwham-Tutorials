@@ -14,11 +14,11 @@
     - Induced Stresses & displacements around an uniformly loaded crack  [OK]
     - Comparison 2DP0 and 2DP1 (convergence) [OK]  
     - unstructured mesh and robustness 2DP0 vs 2DP1 [OK]  
-    - Simplified 3D P0 kernel test [OK] but not as jupytert
+    - Simplified 3D P0 kernel test [OK] but not as jupyter
  + Dugdale-Barenblatt crack (remote tension)
     - displacement discontinuity from loading [TBF] - ratul
     - unstructured mesh and robustness 2DP0 vs 2DP1 [TBD]  
-+ Arc crack under remote isotropic tension (mode I+II) - SIF  [TBD] - translate mma scripts
++ Arc crack under remote isotropic tension (mode I+II) - SIF  [OK] 
 + Star cracks under remote isotropic tension (mode I+II) - SIF [TBD] - translate mma scripts
 + Crack under a linear tensile stress gradient (Weertmaan's pulse) [TBD] - to be developed
 
@@ -40,15 +40,15 @@
 ### Crack problems in an infinite medium
 + Penny-shaped crack under uniform remote loading (mode I or II/III)
     - Displacement discontinuities from loading (and vice-versa) 
-        - mode I   with convergence     [TBD]
+        - mode I   with convergence     [TBF]
         - mode II/III  with convergence [TBD]
     - Comparisons between T6 and T0 (note T6 does not have the displacement) [TBD]
     - Stresses and displacement around mode I [OK] / II/III cracks [TBD]
 + Dugdale-Barenblatt penny-shaped crack under uniform remote mode I loading 
 + Penny-shaped crack under torsional loading 
         - comparisons T6 vs T0 [TBD]
-+ Elliptical crack under remote tension [TBD]
-+ Bowl-shaped crack under remote tension  [TBF]
++ Elliptical crack under remote tension [TBD] 
++ Bowl-shaped crack under remote tension  [TBF] 
 + 3D star cracks equivalent (long in one direction to compare with 2D) [TBD]
 
 ### Elastic problems 
@@ -61,5 +61,4 @@
 + Penny-shaped crack parallel to a free-surface [TBD]
 + Penny-shaped crack intersecting a borehole [TBD]
 + Saw-cut cylindrical sample [TBD]
-
 

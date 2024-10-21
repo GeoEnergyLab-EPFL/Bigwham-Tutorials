@@ -33,7 +33,7 @@ def solveGriffith(nelts,a=1,frac_heighth=1000.):
     t[0::2] = 0.
     jac_prec =h.H_jacobi_prec()
     jac_ilu= h.H_ILU_prec()
-    d = gmres(h, t,M=jac_ilu,tol=1e-6)[0]
+    d = gmres(h, t,M=jac_ilu,rtol=1e-6)[0]
     dd = d.reshape((-1, 2))
     col_pts = h.getMeshCollocationPoints()
     x_coor_=col_pts[:,0]

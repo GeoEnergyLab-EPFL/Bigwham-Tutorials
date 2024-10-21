@@ -1,0 +1,3 @@
+*.pyc
+.vscode
+**/examples/Ratul-BigWham-Example-Notebooks-main/*
