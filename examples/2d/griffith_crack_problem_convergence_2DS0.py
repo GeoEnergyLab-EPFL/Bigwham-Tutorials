@@ -17,7 +17,7 @@ E = (2 * G) * (1 + nu)
 
 # %% function encapsulating the solution !
 
-def solveGriffith(nelts,a=1,kernel = "2DP0-H"):
+def solveGriffith(nelts,a=1,kernel = "2DS0-H"):
     """Wrapper function to solve the Griffith problem with a given number of elements + element type"""
     coor1D = np.linspace(-a, a, nelts + 1)
     coor = np.transpose(np.array([coor1D, coor1D * 0.0]))
@@ -32,14 +32,14 @@ def solveGriffith(nelts,a=1,kernel = "2DP0-H"):
     t[0::2] = 0.
     jac_prec =h.H_jacobi_prec()
     jac_ilu= h.H_ILU_prec()
-    d = gmres(h, t,M=jac_ilu,tol=1e-6)[0]
+    d = gmres(h, t,M=jac_ilu,rtol=1e-6)[0]
     dd = d.reshape((-1, 2))
     col_pts = h.getMeshCollocationPoints()
     x_coor_=col_pts[:,0]
     # Crack opening displacement discontinuity from analytical solution 
     # note that 2DP1 segment have their solution at nodes.... 
     # note that 2DP1 segment have displacement disconinuity at element vertex for each element
-    if (kernel =="2DP1-H"):
+    if (kernel =="2DS1-H"):
         x_coor_ = np.ones(2*nelts)
         for e in range(nelts):
             x_coor_[e*2:e*2+2]=coor1D[conn[e]]
@@ -51,7 +51,7 @@ def solveGriffith(nelts,a=1,kernel = "2DP0-H"):
 
 
 # %%
-col_pts,dd_sol,w_true,rmse,l2rel = solveGriffith(30,a=1,kernel="2DP0-H")
+col_pts,dd_sol,w_true,rmse,l2rel = solveGriffith(30,a=1,kernel="2DS0-H")
 
 import matplotlib.pyplot as plt
 plt.plot(col_pts[:, 0], dd_sol[:,1], "-*")

@@ -27,7 +27,7 @@ def solveGriffith(nelts,a=1,frac_heighth=1000.):
     eta=2.
     eps_aca=1.e-5
     elas_prop = np.array([E, nu,frac_heighth])
-    kernel = "S3DP0-H"
+    kernel = "S3DS0-H"
     h = BEMatrix(kernel, coor, conn, elas_prop, max_leaf_size, eta, eps_aca)
     t = np.ones(h.shape[0])
     t[0::2] = 0.
