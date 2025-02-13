@@ -1,0 +1,25 @@
+# In _config.yml
+title: BigWham Tutorials
+author: Brice Lecampion
+logo:  
+execute:
+  execute_notebooks: auto
+only_build_toc_files: true
+# Add a bibtex file so that we can create citations
+bibtex_bibfiles:
+  - references.bib
+# Information about where the book exists on the web
+repository:
+  url:   # Online location of your book
+  branch: main  # Which branch of the repository should be used when creating links (optional)
+
+sphinx:
+  config:
+    bibtex_reference_style: author_year
+    html_show_copyright: false
+#    html_copyright: '2025'  
+html:
+  extra_footer: |
+    <p>
+    © Copyright 2025.
+    </p>   

@@ -1,0 +1,23 @@
+# In _toc.yml
+format: jb-book
+root: frontmatter
+title: BigWham tutorials
+parts:
+  - caption: Starting with BigWham
+    chapters:
+    - file: examples/2d/bigwham_first_steps_griffith.ipynb
+    - file: examples/2d/bigwham_hmat_computational_scaling_griffith.ipynb
+    - file: examples/2d/displacements_stresses_griffith_crack_2DS0.ipynb
+  - caption: 2D Examples
+    chapters:
+    - file: examples/2d/griffith_crack_problem_convergence_S0_vs_S1.ipynb
+    - file: examples/2d/finite_dislocation_2d.ipynb
+    - file: examples/2d/arc_crack_isotropic_tension.ipynb
+    - file: examples/2d/Dugdale_crack_2DS0.ipynb
+    - file: examples/2d/griffith_crack_non_uniform_mesh_S0_vs_S1.ipynb
+  - caption: 3D Examples
+    chapters:
+    - file: examples/3d/penny_shaped_crack_tensile_T0.ipynb
+    - file: examples/3d/displacements_stresses_penny_shaped_crack_tensile.ipynb
+    - file: examples/3d/penny_shaped_crack_tensile_R0.ipynb
+    - file: examples/3d/blade_crack_tensile_T0.ipynb
