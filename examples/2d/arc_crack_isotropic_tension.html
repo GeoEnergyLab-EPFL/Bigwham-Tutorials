@@ -65,7 +65,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'examples/2d/arc_crack_isotropic_tension';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="2d Bilby-Cottrell-Swinden-Dugdale Cohesive Crack example" href="Dugdale_crack_2DS0.html" />
+    <link rel="next" title="2d Dugdale Cohesive Crack example" href="Dugdale_crack_2DS0.html" />
     <link rel="prev" title="Elastic fields around a finite dislocation segment" href="finite_dislocation_2d.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -176,7 +176,7 @@
 <li class="toctree-l1"><a class="reference internal" href="griffith_crack_problem_convergence_S0_vs_S1.html">Piece-wise constant versus piece-wise linear discretization - accuracy for uniform meshes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="finite_dislocation_2d.html">Elastic fields around a finite dislocation segment</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Arc crack under remote uniform isotropic tension</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Dugdale_crack_2DS0.html">2d Bilby-Cottrell-Swinden-Dugdale Cohesive Crack example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Dugdale_crack_2DS0.html">2d Dugdale Cohesive Crack example</a></li>
 
 
 <li class="toctree-l1"><a class="reference internal" href="griffith_crack_non_uniform_mesh_S0_vs_S1.html">Uniform vs non-uniform mesh size for a simple straigth crack : S0 vs S1 elements</a></li>
@@ -352,9 +352,9 @@
   <section class="tex2jax_ignore mathjax_ignore" id="arc-crack-under-remote-uniform-isotropic-tension">
 <h1>Arc crack under remote uniform isotropic tension<a class="headerlink" href="#arc-crack-under-remote-uniform-isotropic-tension" title="Link to this heading">#</a></h1>
 <p>Plane Elastic problem</p>
-<p>We consider a circular arc crack in a 2D plane-strain infinite uniform isotropic solid, undergoing deformation due to an isotropic tensile loading applied at infinity. Such a loading does not result in any local shear traction. Indeed, as <span class="math notranslate nohighlight">\(\bm{\sigma}=\bm{I}\)</span>, the local traction vector
-along the crack is along the local normal <span class="math notranslate nohighlight">\(\bm{T}=\bm{n}\)</span>. However, because the crack is non-planar, some induced shear traction by crack opening must be released, this results in some shear slip along the arc crack. Such a problem contains therefore both mode I (tensile) and mode II (shear) component, and is therefore a good verification test.</p>
-<p>The solution can be found in <span id="id1">[<a class="reference internal" href="bigwham_first_steps_griffith.html#id4" title="A. Piva. A crack along a circular interface between dissimilar media. Meccanica, 17(2):85–90, june 1982.">Piva, 1982</a>]</span>. We code here the solution for the simpler case of an uniform media: i) for the profile of shear and normal displacement discontinuity (as function of polar angle) and ii) the mode I &amp; II stress intensity factor.</p>
+<p>We consider a circular arc crack in a 2D plane-strain infinite uniform isotropic solid, undergoing deformation due to an isotropic tensile loading applied at infinity. Such a loading does not result in any local shear traction. Indeed, as <span class="math notranslate nohighlight">\(\mathbf{\sigma}=\mathbf{I}\)</span>, the local traction vector
+along the crack is along the local normal <span class="math notranslate nohighlight">\(\mathbf{T}=\mathbf{n}\)</span>. However, because the crack is non-planar, some induced shear traction by crack opening must be released, this results in some shear slip along the arc crack. Such a problem contains therefore both mode I (tensile) and mode II (shear) component, and is therefore a good verification test.</p>
+<p>The solution can be found in <span id="id1">[<a class="reference internal" href="#id4" title="A. Piva. A crack along a circular interface between dissimilar media. Meccanica, 17(2):85–90, june 1982.">Piva, 1982</a>]</span>. We code here the solution for the simpler case of an uniform media: i) for the profile of shear and normal displacement discontinuity (as function of polar angle) and ii) the mode I &amp; II stress intensity factor.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -459,7 +459,7 @@ along the crack is along the local normal <span class="math notranslate nohighli
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7fe0e0aee770&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f8908e5e860&gt;
 </pre></div>
 </div>
 <img alt="../../_images/9b265b095b014529934e748e8dafd0c86e14bee2777669326b0dd0fd5d130fb7.png" src="../../_images/9b265b095b014529934e748e8dafd0c86e14bee2777669326b0dd0fd5d130fb7.png" />
@@ -476,7 +476,7 @@ along the crack is along the local normal <span class="math notranslate nohighli
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7fe0e0e135b0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f88f92b3d60&gt;
 </pre></div>
 </div>
 <img alt="../../_images/c158ca4bd2af69b185ce9db9f137e4202cb48e959b0ed1650d8d3f7f24e82906.png" src="../../_images/c158ca4bd2af69b185ce9db9f137e4202cb48e959b0ed1650d8d3f7f24e82906.png" />
@@ -605,7 +605,7 @@ K_II rereferencef: 0.67042953107272 Num est.: 0.754412413631419
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">2d Bilby-Cottrell-Swinden-Dugdale Cohesive Crack example</p>
+        <p class="prev-next-title">2d Dugdale Cohesive Crack example</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
