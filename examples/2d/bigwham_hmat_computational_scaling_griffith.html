@@ -1,0 +1,834 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Hierarchical matrix scaling &#8212; BigWham Tutorials</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'examples/2d/bigwham_hmat_computational_scaling_griffith';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Elastic fields around a Griffith crack" href="displacements_stresses_griffith_crack_2DS0.html" />
+    <link rel="prev" title="First Steps with BigWham" href="bigwham_first_steps_griffith.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../frontmatter.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">BigWham Tutorials</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../frontmatter.html">
+                    Welcome
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Starting with BigWham</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="bigwham_first_steps_griffith.html">First Steps with BigWham</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Hierarchical matrix scaling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="displacements_stresses_griffith_crack_2DS0.html">Elastic fields around a Griffith crack</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">2D Examples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="griffith_crack_problem_convergence_S0_vs_S1.html">Piece-wise constant versus piece-wise linear discretization - accuracy for uniform meshes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="finite_dislocation_2d.html">Elastic fields around a finite dislocation segment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="arc_crack_isotropic_tension.html">Arc crack under remote uniform isotropic tension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Dugdale_crack_2DS0.html">2d Bilby-Cottrell-Swinden-Dugdale Cohesive Crack example</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="griffith_crack_non_uniform_mesh_S0_vs_S1.html">Uniform vs non-uniform mesh size for a simple straigth crack : S0 vs S1 elements</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">3D Examples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../3d/penny_shaped_crack_tensile_T0.html">Penny-shaped (radial) crack under uniform tension - displacement discontinuity solution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3d/displacements_stresses_penny_shaped_crack_tensile.html">Elastic field around a penny-shaped (radial) crack under uniform tension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3d/penny_shaped_crack_tensile_R0.html">Penny-shaped crack under uniform tension - solution on a cartesian mesh made of square elements</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../3d/blade_crack_tensile_T0.html">Blade (rectangular) crack under uniform tension - displacement discontinuity solution</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/examples/2d/bigwham_hmat_computational_scaling_griffith.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Hierarchical matrix scaling</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exploring-the-computational-scaling-of-hierarchical-matrices-for-a-simple-geometry-straight-crack-in-2d">Exploring the computational scaling of hierarchical matrices for a simple geometry (straight crack in 2D)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discretization-hierarchical-matrix-creation">Discretization &amp; hierarchical matrix creation</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="hierarchical-matrix-scaling">
+<h1>Hierarchical matrix scaling<a class="headerlink" href="#hierarchical-matrix-scaling" title="Link to this heading">#</a></h1>
+<section id="exploring-the-computational-scaling-of-hierarchical-matrices-for-a-simple-geometry-straight-crack-in-2d">
+<h2>Exploring the computational scaling of hierarchical matrices for a simple geometry (straight crack in 2D)<a class="headerlink" href="#exploring-the-computational-scaling-of-hierarchical-matrices-for-a-simple-geometry-straight-crack-in-2d" title="Link to this heading">#</a></h2>
+<p>[level- beginner]</p>
+<p>Plane Elasticity problem</p>
+<p>In this notebook, we focus on the elasto-static problem of a straight fracture in an infinite isotropic medium under uniform remote tension (the Griffith crack), and explore the performance of the hierarchical matrix compression.</p>
+<p>We first import the Bigwham python interface, as well as a different libraries.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># imports etc.</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="c1"># for plotting</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="kn">from</span> <span class="nn">bigwham4py</span> <span class="kn">import</span> <span class="n">BEMatrix</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="discretization-hierarchical-matrix-creation">
+<h2>Discretization &amp; hierarchical matrix creation<a class="headerlink" href="#discretization-hierarchical-matrix-creation" title="Link to this heading">#</a></h2>
+<p>In this tutorial, we want to explore the computational performance of the hierarchical matrix algorithm for a simple geometry - a straigth crack in 2D. We will use piece-wise constant displacement discontinuity element for discretization. s</p>
+<p>We write a small function to discretize a uniform mesh, and construct the corresponding hierarchical matrix for the hyper-singular 2D plane-strain elastic kernel (traction BIE).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
+
+<span class="k">def</span> <span class="nf">create_h_mat_2DS0</span><span class="p">(</span><span class="n">nelts</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">eta</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">max_leaf_size</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span><span class="n">eps_aca</span><span class="o">=</span><span class="mf">1.e-4</span><span class="p">,</span><span class="n">n_openMP_threads</span><span class="o">=</span><span class="mi">16</span><span class="p">):</span>
+
+    <span class="n">a</span><span class="o">=</span><span class="mi">1</span> <span class="c1"># we fix the crack  to be in -1,1</span>
+    <span class="n">coor1D</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">nelts</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># the list of x coordinates of the element vertex</span>
+    <span class="n">coor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">coor1D</span><span class="p">,</span> <span class="n">coor1D</span> <span class="o">*</span> <span class="mf">0.0</span><span class="p">]))</span> <span class="c1"># the y coordinates is all zero.</span>
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fromfunction</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">:</span> <span class="n">i</span> <span class="o">+</span> <span class="n">j</span><span class="p">,</span> <span class="p">(</span><span class="n">nelts</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int_</span><span class="p">)</span> <span class="c1"># the connectivity of the mesh is very simple </span>
+    <span class="n">G</span> <span class="o">=</span> <span class="mf">1.0</span>                <span class="c1"># shear modulus in [Pa]</span>
+    <span class="n">nu</span> <span class="o">=</span> <span class="mf">0.1</span>              <span class="c1"># Poisson&#39;s ratio [-]</span>
+    <span class="n">E</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">G</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">nu</span><span class="p">)</span> <span class="c1"># Young&#39;s modulus [Pa]</span>
+    <span class="n">elas_prop</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">E</span><span class="p">,</span> <span class="n">nu</span><span class="p">])</span> <span class="c1"># an array for the BigWham interface</span>
+    <span class="n">kernel_elt</span> <span class="o">=</span> <span class="s2">&quot;2DS0-H&quot;</span>  <span class="c1"># 2D elastic P0 element (piece-wise constant displacement discontinuity for fracture)</span>
+    <span class="n">zt</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">process_time</span><span class="p">()</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">BEMatrix</span><span class="p">(</span><span class="n">kernel_elt</span><span class="p">,</span> <span class="n">coor</span><span class="p">,</span> <span class="n">conn</span><span class="p">,</span> <span class="n">elas_prop</span><span class="p">,</span> <span class="n">max_leaf_size</span><span class="p">,</span> <span class="n">eta</span><span class="p">,</span> <span class="n">eps_aca</span><span class="p">)</span>
+    <span class="n">mat_construct_time</span> <span class="o">=</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">process_time</span><span class="p">()</span> <span class="o">-</span> <span class="n">zt</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">h</span><span class="p">,</span><span class="n">mat_construct_time</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s also write a function to time the computational cost of a matrix-vector dot product by the h-mat. (here results will depend on the hardware - and the number of active Threads). The number of active threads for a hmat object can be obtained via “h.get_omp_threads()”</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
+<span class="k">def</span> <span class="nf">time_dot_product</span><span class="p">(</span><span class="n">h</span><span class="p">):</span>
+    <span class="n">tinf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">h</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="c1"># Testing matvec operation</span>
+    <span class="n">zt</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="n">h</span> <span class="o">@</span> <span class="n">tinf</span>
+    <span class="n">elapsed</span> <span class="o">=</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">zt</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span>
+    <span class="k">return</span> <span class="n">elapsed</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s now time the mat-vect product while increasing the number of elements up to 200000. Caution, the following cells will take time (about 52 seconds on my 8 cores laptop).</p>
+<div class="cell tag_{_____&quot;tags&quot;:_[_________&quot;hide-output&quot;,_____]_} docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">list_of_nelts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">20</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">500</span><span class="p">,</span><span class="mi">2000</span><span class="p">,</span><span class="mi">5000</span><span class="p">,</span><span class="mi">20000</span><span class="p">,</span><span class="mi">50000</span><span class="p">,</span><span class="mi">200000</span><span class="p">])</span> <span class="c1"># </span>
+<span class="n">hmat_construct_time</span> <span class="o">=</span> <span class="n">list_of_nelts</span><span class="o">*</span><span class="mf">0.</span>
+<span class="n">matvect_time</span> <span class="o">=</span> <span class="n">list_of_nelts</span><span class="o">*</span><span class="mf">0.</span>
+<span class="n">h_compression</span> <span class="o">=</span> <span class="n">list_of_nelts</span><span class="o">*</span><span class="mf">0.</span>
+<span class="n">i</span><span class="o">=</span><span class="mi">0</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">list_of_nelts</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
+    <span class="n">h</span><span class="p">,</span><span class="n">elasp</span> <span class="o">=</span> <span class="n">create_h_mat_2DS0</span><span class="p">(</span><span class="n">list_of_nelts</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">eta</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="n">max_leaf_size</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span><span class="n">eps_aca</span><span class="o">=</span><span class="mf">1.e-4</span><span class="p">)</span>
+    <span class="n">matvect_time</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span> <span class="n">time_dot_product</span><span class="p">(</span><span class="n">h</span><span class="p">)</span> 
+    <span class="n">h_compression</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">h</span><span class="o">.</span><span class="n">getCompression</span><span class="p">()</span>
+    <span class="n">hmat_construct_time</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">elasp</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>NUM OF AVAILABLE OMP THREADS: 16
+BigWham using 8 OpenMP threads
+ Now setting things for kernel ... 2DS0-H with properties size 2
+--------------------
+Hierarchical representation creation ...
+Cluster tree creation time for the source mesh :  0
+Cluster tree creation time for the source mesh :  0
+Time for binary cluster tree construction  3e-06
+ binary cluster tree depth =0
+ Number of blocks =1
+ Number of full blocks =1
+ Number of low rank blocks =0
+Pattern Created 
+Hierarchical representation complete.
+--------------------
+Populating Hierarchical matrix ...
+ Loop on full blocks construction  
+ N full blocks 1 
+Loop on low rank blocks construction
+N low rank blocks 0
+dof_dimension: 2
+Creation of hmat done in 0.001099
+Compression ratio - 1
+Hmat object - built 
+Hierarchical matrix construction complete.
+Compression Ratio = 1, eps_aca = 0.0001, eta = 3
+Hierarchical matrix  construction time = :  0.001116
+BigWham constructed Hmat of size (20 x 2) X (20 x 2)
+--------------------
+NUM OF AVAILABLE OMP THREADS: 16
+BigWham using 8 OpenMP threads
+ Now setting things for kernel ... 2DS0-H with properties size 2
+--------------------
+Hierarchical representation creation ...
+Cluster tree creation time for the source mesh :  0
+Cluster tree creation time for the source mesh :  0
+Time for binary cluster tree construction  1e-06
+ binary cluster tree depth =0
+ Number of blocks =1
+ Number of full blocks =1
+ Number of low rank blocks =0
+Pattern Created 
+Hierarchical representation complete.
+--------------------
+Populating Hierarchical matrix ...
+ Loop on full blocks construction  
+ N full blocks 1 
+Loop on low rank blocks construction
+N low rank blocks 0
+dof_dimension: 2
+Creation of hmat done in 0.004593
+Compression ratio - 1
+Hmat object - built 
+Hierarchical matrix construction complete.
+Compression Ratio = 1, eps_aca = 0.0001, eta = 3
+Hierarchical matrix  construction time = :  0.0046
+BigWham constructed Hmat of size (50 x 2) X (50 x 2)
+--------------------
+NUM OF AVAILABLE OMP THREADS: 16
+BigWham using 8 OpenMP threads
+ Now setting things for kernel ... 2DS0-H with properties size 2
+--------------------
+Hierarchical representation creation ...
+Cluster tree creation time for the source mesh :  0
+Cluster tree creation time for the source mesh :  0
+Time for binary cluster tree construction  1.9e-05
+ binary cluster tree depth =2
+ Number of blocks =16
+ Number of full blocks =10
+ Number of low rank blocks =6
+Pattern Created 
+Hierarchical representation complete.
+--------------------
+Populating Hierarchical matrix ...
+ Loop on full blocks construction  
+ N full blocks 10 
+Loop on low rank blocks construction
+N low rank blocks 6
+dof_dimension: 2
+Creation of hmat done in 0.010259
+Compression ratio - 0.695
+Hmat object - built 
+Hierarchical matrix construction complete.
+Compression Ratio = 0.695, eps_aca = 0.0001, eta = 3
+Hierarchical matrix  construction time = :  0.010266
+BigWham constructed Hmat of size (200 x 2) X (200 x 2)
+--------------------
+NUM OF AVAILABLE OMP THREADS: 16
+BigWham using 8 OpenMP threads
+ Now setting things for kernel ... 2DS0-H with properties size 2
+--------------------
+Hierarchical representation creation ...
+Cluster tree creation time for the source mesh :  0
+Cluster tree creation time for the source mesh :  0
+Time for binary cluster tree construction  7.1e-05
+ binary cluster tree depth =3
+ Number of blocks =46
+ Number of full blocks =22
+ Number of low rank blocks =24
+Pattern Created 
+Hierarchical representation complete.
+--------------------
+Populating Hierarchical matrix ...
+ Loop on full blocks construction  
+ N full blocks 22 
+Loop on low rank blocks construction
+N low rank blocks 24
+dof_dimension: 2
+Creation of hmat done in 0.034254
+Compression ratio - 0.413744
+Hmat object - built 
+Hierarchical matrix construction complete.
+Compression Ratio = 0.413744, eps_aca = 0.0001, eta = 3
+Hierarchical matrix  construction time = :  0.034263
+BigWham constructed Hmat of size (500 x 2) X (500 x 2)
+--------------------
+NUM OF AVAILABLE OMP THREADS: 16
+BigWham using 8 OpenMP threads
+ Now setting things for kernel ... 2DS0-H with properties size 2
+--------------------
+Hierarchical representation creation ...
+Cluster tree creation time for the source mesh :  0
+Cluster tree creation time for the source mesh :  0
+Time for binary cluster tree construction  0.000574
+ binary cluster tree depth =5
+ Number of blocks =250
+ Number of full blocks =94
+ Number of low rank blocks =156
+Pattern Created 
+Hierarchical representation complete.
+--------------------
+Populating Hierarchical matrix ...
+ Loop on full blocks construction  
+ N full blocks 94 
+Loop on low rank blocks construction
+N low rank blocks 156
+dof_dimension: 2
+Creation of hmat done in 0.172058
+Compression ratio - 0.13467
+Hmat object - built 
+Hierarchical matrix construction complete.
+Compression Ratio = 0.13467, eps_aca = 0.0001, eta = 3
+Hierarchical matrix  construction time = :  0.172074
+BigWham constructed Hmat of size (2000 x 2) X (2000 x 2)
+--------------------
+NUM OF AVAILABLE OMP
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> THREADS: 16
+BigWham using 8 OpenMP threads
+ Now setting things for kernel ... 2DS0-H with properties size 2
+--------------------
+Hierarchical representation creation ...
+Cluster tree creation time for the source mesh :  0
+Cluster tree creation time for the source mesh :  0
+Time for binary cluster tree construction  0.002173
+ binary cluster tree depth =7
+ Number of blocks =1102
+ Number of full blocks =382
+ Number of low rank blocks =720
+Pattern Created 
+Hierarchical representation complete.
+--------------------
+Populating Hierarchical matrix ...
+ Loop on full blocks construction  
+ N full blocks 382 
+Loop on low rank blocks construction
+N low rank blocks 720
+dof_dimension: 2
+Creation of hmat done in 0.465492
+Compression ratio - 0.0514002
+Hmat object - built 
+Hierarchical matrix construction complete.
+Compression Ratio = 0.0514002, eps_aca = 0.0001, eta = 3
+Hierarchical matrix  construction time = :  0.465518
+BigWham constructed Hmat of size (5000 x 2) X (5000 x 2)
+--------------------
+NUM OF AVAILA
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>BLE OMP THREADS: 16
+BigWham using 8 OpenMP threads
+ Now setting things for kernel ... 2DS0-H with properties size 2
+--------------------
+Hierarchical representation creation ...
+Cluster tree creation time for the source mesh :  0
+Cluster tree creation time for the source mesh :  0
+Time for binary cluster tree construction  0.011416
+ binary cluster tree depth =9
+ Number of blocks =4546
+ Number of full blocks =1534
+ Number of low rank blocks =3012
+Pattern Created 
+Hierarchical representation complete.
+--------------------
+Populating Hierarchical matrix ...
+ Loop on full blocks construction  
+ N full blocks 1534 
+Loop on low rank blocks construction
+N low rank blocks 3012
+dof_dimension: 2
+Creation of hmat done in 2.38707
+Compression ratio - 0.0156573
+Hmat object - built 
+Hierarchical matrix construction complete.
+Compression Ratio = 0.0156573, eps_aca = 0.0001, eta = 3
+Hierarchical matrix  construction time = :  2.38711
+BigWham constructed Hmat of size (20000 x 2) X (20000 x 2)
+--------------------
+NUM OF AV
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can first visualize the cost of the hierarchical matrix creation, and its scaling. It scales as <span class="math notranslate nohighlight">\(\mathcal{O}(n \log n)\)</span>, where <span class="math notranslate nohighlight">\(n\)</span> is the total number of unknowns ( here equal to 2*number of elts). An usual construction of the fully-populated matrix would yield a computation cost of  <span class="math notranslate nohighlight">\(\mathcal{O}(n^2)\)</span> in comparison.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">list_of_nelts</span><span class="p">,</span><span class="n">hmat_construct_time</span><span class="p">,</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">list_of_nelts</span><span class="p">,</span><span class="mf">1e-4</span><span class="o">*</span><span class="n">list_of_nelts</span><span class="o">*</span><span class="n">list_of_nelts</span><span class="p">,</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">list_of_nelts</span><span class="p">,</span><span class="mf">1e-4</span><span class="o">*</span><span class="n">list_of_nelts</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">list_of_nelts</span><span class="p">),</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;N dofs&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39; H mat construction time&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;data&#39;</span><span class="p">,</span><span class="s1">&#39;$n^2$&#39;</span><span class="p">,</span> <span class="s1">&#39;$n\, \log n$&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Hierarchical matrix construction scaling &#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Hierarchical matrix construction scaling &#39;)
+</pre></div>
+</div>
+<img alt="../../_images/69084176f1392af70a530620788cb885ee5d7215fe0eebab9602b39afa0cefa5.png" src="../../_images/69084176f1392af70a530620788cb885ee5d7215fe0eebab9602b39afa0cefa5.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">list_of_nelts</span><span class="p">,</span><span class="n">matvect_time</span><span class="p">,</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">list_of_nelts</span><span class="p">,</span><span class="mf">1e-9</span><span class="o">*</span><span class="mi">4</span><span class="o">*</span><span class="n">list_of_nelts</span><span class="o">*</span><span class="n">list_of_nelts</span><span class="p">,</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">list_of_nelts</span><span class="p">,</span><span class="mf">1e-7</span><span class="o">*</span><span class="n">list_of_nelts</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">list_of_nelts</span><span class="p">),</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;N dofs&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Mat-vec cost&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;data&#39;</span><span class="p">,</span><span class="s1">&#39;$n^2$&#39;</span><span class="p">,</span> <span class="s1">&#39;$n\, \log n$&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;H-Matrix-vector product scaling &#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;H-Matrix-vector product scaling &#39;)
+</pre></div>
+</div>
+<img alt="../../_images/0bc195fcbb702d9a345b27b93aa92968396e9b8fd3d247cad85a624e248aeb52.png" src="../../_images/0bc195fcbb702d9a345b27b93aa92968396e9b8fd3d247cad85a624e248aeb52.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">list_of_nelts</span><span class="p">,</span><span class="n">h_compression</span><span class="p">,</span><span class="s1">&#39;.&#39;</span><span class="p">)</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;N dofs&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Compression ratio&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;H-matrix compression scaling &#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;H-matrix compression scaling &#39;)
+</pre></div>
+</div>
+<img alt="../../_images/e6d9b219152df036a7e38ee65989b0b57031c4128e5a8f0b6c7d4fced9877733.png" src="../../_images/e6d9b219152df036a7e38ee65989b0b57031c4128e5a8f0b6c7d4fced9877733.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./examples/2d"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="bigwham_first_steps_griffith.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">First Steps with BigWham</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="displacements_stresses_griffith_crack_2DS0.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Elastic fields around a Griffith crack</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exploring-the-computational-scaling-of-hierarchical-matrices-for-a-simple-geometry-straight-crack-in-2d">Exploring the computational scaling of hierarchical matrices for a simple geometry (straight crack in 2D)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discretization-hierarchical-matrix-creation">Discretization &amp; hierarchical matrix creation</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Brice Lecampion
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <p>
+© Copyright 2025.
+</p>   
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

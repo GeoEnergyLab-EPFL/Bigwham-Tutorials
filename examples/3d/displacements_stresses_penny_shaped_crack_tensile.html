@@ -1,0 +1,890 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Elastic field around a penny-shaped (radial) crack under uniform tension &#8212; BigWham Tutorials</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'examples/3d/displacements_stresses_penny_shaped_crack_tensile';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Penny-shaped crack under uniform tension - solution on a cartesian mesh made of square elements" href="penny_shaped_crack_tensile_R0.html" />
+    <link rel="prev" title="Penny-shaped (radial) crack under uniform tension - displacement discontinuity solution" href="penny_shaped_crack_tensile_T0.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../frontmatter.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">BigWham Tutorials</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../frontmatter.html">
+                    Welcome
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Starting with BigWham</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../2d/bigwham_first_steps_griffith.html">First Steps with BigWham</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2d/bigwham_hmat_computational_scaling_griffith.html">Hierarchical matrix scaling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2d/displacements_stresses_griffith_crack_2DS0.html">Elastic fields around a Griffith crack</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">2D Examples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../2d/griffith_crack_problem_convergence_S0_vs_S1.html">Piece-wise constant versus piece-wise linear discretization - accuracy for uniform meshes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2d/finite_dislocation_2d.html">Elastic fields around a finite dislocation segment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2d/arc_crack_isotropic_tension.html">Arc crack under remote uniform isotropic tension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2d/Dugdale_crack_2DS0.html">2d Bilby-Cottrell-Swinden-Dugdale Cohesive Crack example</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../2d/griffith_crack_non_uniform_mesh_S0_vs_S1.html">Uniform vs non-uniform mesh size for a simple straigth crack : S0 vs S1 elements</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">3D Examples</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="penny_shaped_crack_tensile_T0.html">Penny-shaped (radial) crack under uniform tension - displacement discontinuity solution</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Elastic field around a penny-shaped (radial) crack under uniform tension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="penny_shaped_crack_tensile_R0.html">Penny-shaped crack under uniform tension - solution on a cartesian mesh made of square elements</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="blade_crack_tensile_T0.html">Blade (rectangular) crack under uniform tension - displacement discontinuity solution</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/examples/3d/displacements_stresses_penny_shaped_crack_tensile.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Elastic field around a penny-shaped (radial) crack under uniform tension</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stresses-around-a-3d-penny-shaped-crack-under-uniform-remote-tension">Stresses around a 3D penny-shaped crack under uniform remote tension</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#displacements-around-a-3d-penny-shaped-crack-under-uniform-remote-tension">Displacements around a 3D penny-shaped crack under uniform remote tension</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#displacement-along-another-line-z-0-1">Displacement along another line @ z=0.1</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="elastic-field-around-a-penny-shaped-radial-crack-under-uniform-tension">
+<h1>Elastic field around a penny-shaped (radial) crack under uniform tension<a class="headerlink" href="#elastic-field-around-a-penny-shaped-radial-crack-under-uniform-tension" title="Link to this heading">#</a></h1>
+<p>3D axi-symmetric Elastic problem</p>
+<p>Displacements and stresses around a flat penny-shaped crack  <span class="math notranslate nohighlight">\( r \in [0,a], \theta \in [0,2\pi] \)</span> under pure tensile loading <span class="math notranslate nohighlight">\(\sigma\)</span>.</p>
+<p>We test the computation of the displacement and stress at observation points by setting the solution of the collocation BEM to the analytical solution on the BE mesh.</p>
+<p>The crack displacement discontinuity is given  for <span class="math notranslate nohighlight">\( r \in [0,a], \theta \in [0,2\pi]  \)</span> as:</p>
+<p><span class="math notranslate nohighlight">\(\Delta u_z (r,\theta,z=0)= u_z (r,\theta,z=0^+)-u_z(r,\theta,z=0^-)=  \frac{8 \sigma}{ \pi E^\prime} \sqrt{a^2-r^2} =\frac{4 (1-\nu) \sigma}{\pi G} \sqrt{a^2-r^2}  \)</span></p>
+<p><span class="math notranslate nohighlight">\(\Delta u_r (r,\theta,z=0)= \Delta u_\theta (r,\theta,z=0)= 0 \)</span></p>
+<p>where <span class="math notranslate nohighlight">\(E^\prime = E / (1-\nu^2) \)</span> is the plane strain Young’s modulus, <span class="math notranslate nohighlight">\(G = E/ (2(1+\nu)) \)</span> the shear modulus, <span class="math notranslate nohighlight">\(E\)</span> the Young’s modulus and <span class="math notranslate nohighlight">\(\nu\)</span> the Poisson’s ratio.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="c1"># # %% importing BigWham </span>
+<span class="kn">from</span> <span class="nn">bigwham4py</span> <span class="kn">import</span> <span class="n">BEMatrix</span>
+
+<span class="c1"># load the analytical solution </span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s1">&#39;../../&#39;</span><span class="p">))</span>
+
+<span class="kn">from</span> <span class="nn">solutions.penny_shaped_crack_uniform</span> <span class="kn">import</span> <span class="n">displacement_tensile_penny_shaped</span><span class="p">,</span><span class="n">stresses_tensile_penny_shaped</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Elastic properties</span>
+<span class="n">G</span><span class="o">=</span><span class="mf">1.</span>
+<span class="n">nu</span><span class="o">=</span><span class="mf">0.15</span>
+
+<span class="n">rr</span> <span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.00001</span><span class="p">,</span><span class="mf">10.</span><span class="p">,</span><span class="mi">1000</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#%% mesh a circle with gmsh with a refinement in the center.</span>
+<span class="kn">import</span> <span class="nn">pygmsh</span>
+
+<span class="n">center_res</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">out_res</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">Lx_ext</span> <span class="o">=</span> <span class="mf">1.</span>
+
+<span class="c1">#   Ensure correct ORIENTATION -&gt; left hand rule .... </span>
+<span class="k">with</span> <span class="n">pygmsh</span><span class="o">.</span><span class="n">geo</span><span class="o">.</span><span class="n">Geometry</span><span class="p">()</span> <span class="k">as</span> <span class="n">geom</span><span class="p">:</span>
+    <span class="n">center_point</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">add_point</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">center_res</span><span class="p">)</span>
+    <span class="n">top_point</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">add_point</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">Lx_ext</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">out_res</span> <span class="p">)</span>
+    <span class="n">right_point</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">add_point</span><span class="p">([</span><span class="n">Lx_ext</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">out_res</span> <span class="p">)</span>
+    <span class="n">bottom_point</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">add_point</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span><span class="o">-</span><span class="n">Lx_ext</span><span class="p">,</span><span class="mf">0.</span><span class="p">],</span><span class="n">out_res</span><span class="p">)</span>
+    <span class="n">left_point</span> <span class="o">=</span>  <span class="n">geom</span><span class="o">.</span><span class="n">add_point</span><span class="p">([</span><span class="o">-</span><span class="n">Lx_ext</span><span class="p">,</span><span class="mf">0.</span><span class="p">,</span><span class="mf">0.</span><span class="p">],</span><span class="n">out_res</span><span class="p">)</span>
+
+    <span class="n">l1</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">add_line</span><span class="p">(</span><span class="n">center_point</span><span class="p">,</span> <span class="n">top_point</span><span class="p">)</span>
+    <span class="n">arc1</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">add_circle_arc</span><span class="p">(</span><span class="n">top_point</span><span class="p">,</span> <span class="n">center_point</span><span class="p">,</span> <span class="n">right_point</span><span class="p">)</span>
+    <span class="n">l2</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">add_line</span><span class="p">(</span><span class="n">right_point</span><span class="p">,</span> <span class="n">center_point</span><span class="p">)</span>
+    <span class="n">loop1</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">add_curve_loop</span><span class="p">([</span><span class="n">l1</span><span class="p">,</span><span class="n">arc1</span><span class="p">,</span><span class="n">l2</span><span class="p">])</span>
+    
+    <span class="n">l3</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">add_line</span><span class="p">(</span><span class="n">center_point</span><span class="p">,</span><span class="n">right_point</span><span class="p">)</span>
+    <span class="n">arc2</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">add_circle_arc</span><span class="p">(</span><span class="n">right_point</span><span class="p">,</span> <span class="n">center_point</span><span class="p">,</span><span class="n">bottom_point</span><span class="p">)</span>
+    <span class="n">l4</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">add_line</span><span class="p">(</span><span class="n">bottom_point</span><span class="p">,</span><span class="n">center_point</span><span class="p">)</span>
+    <span class="n">loop2</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">add_curve_loop</span><span class="p">([</span><span class="n">l3</span><span class="p">,</span><span class="n">arc2</span><span class="p">,</span><span class="n">l4</span><span class="p">])</span>
+    
+    <span class="n">l5</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">add_line</span><span class="p">(</span><span class="n">center_point</span><span class="p">,</span><span class="n">bottom_point</span><span class="p">)</span>
+    <span class="n">arc3</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">add_circle_arc</span><span class="p">(</span><span class="n">bottom_point</span><span class="p">,</span><span class="n">center_point</span><span class="p">,</span><span class="n">left_point</span><span class="p">)</span> 
+    <span class="n">l6</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">add_line</span><span class="p">(</span><span class="n">left_point</span><span class="p">,</span><span class="n">center_point</span><span class="p">)</span>   
+    <span class="n">loop3</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">add_curve_loop</span><span class="p">([</span><span class="n">l5</span><span class="p">,</span><span class="n">arc3</span><span class="p">,</span><span class="n">l6</span><span class="p">])</span>
+    
+    <span class="n">l7</span><span class="o">=</span><span class="n">geom</span><span class="o">.</span><span class="n">add_line</span><span class="p">(</span><span class="n">center_point</span><span class="p">,</span><span class="n">left_point</span><span class="p">)</span>
+    <span class="n">arc4</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">add_circle_arc</span><span class="p">(</span><span class="n">left_point</span><span class="p">,</span><span class="n">center_point</span><span class="p">,</span><span class="n">top_point</span><span class="p">)</span>
+    <span class="n">l8</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">add_line</span><span class="p">(</span><span class="n">top_point</span><span class="p">,</span><span class="n">center_point</span><span class="p">)</span>
+    <span class="n">loop4</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">add_curve_loop</span><span class="p">([</span><span class="n">l7</span><span class="p">,</span><span class="n">arc4</span><span class="p">,</span><span class="n">l8</span><span class="p">])</span>
+    
+    <span class="n">geom</span><span class="o">.</span><span class="n">add_plane_surface</span><span class="p">(</span><span class="n">loop1</span><span class="p">)</span>
+    <span class="n">geom</span><span class="o">.</span><span class="n">add_plane_surface</span><span class="p">(</span><span class="n">loop2</span><span class="p">)</span>
+    <span class="n">geom</span><span class="o">.</span><span class="n">add_plane_surface</span><span class="p">(</span><span class="n">loop3</span><span class="p">)</span>
+    <span class="n">geom</span><span class="o">.</span><span class="n">add_plane_surface</span><span class="p">(</span><span class="n">loop4</span><span class="p">)</span>
+    
+    <span class="n">geom</span><span class="o">.</span><span class="n">synchronize</span><span class="p">()</span>
+    <span class="n">g_mesh</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">generate_mesh</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">algorithm</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    
+
+<span class="n">g_mesh</span><span class="o">.</span><span class="n">points</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">coor</span><span class="o">=</span><span class="n">g_mesh</span><span class="o">.</span><span class="n">points</span>
+<span class="n">conn</span><span class="o">=</span><span class="n">g_mesh</span><span class="o">.</span><span class="n">cells_dict</span><span class="p">[</span><span class="s1">&#39;triangle&#39;</span><span class="p">]</span>
+<span class="n">swap_c</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">swap_c</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="n">conn</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">swap_c</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span><span class="o">=</span><span class="n">conn</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">conn</span><span class="o">=</span><span class="n">swap_c</span>
+
+<span class="c1">## plotting the unstructured mesh</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="n">triang</span><span class="o">=</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">tri</span><span class="o">.</span><span class="n">Triangulation</span><span class="p">(</span><span class="n">coor</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">coor</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">triangles</span><span class="o">=</span><span class="n">conn</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">fig1</span><span class="p">,</span> <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">triplot</span><span class="p">(</span><span class="n">triang</span><span class="p">,</span> <span class="s1">&#39;b-&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span><span class="mf">0.</span><span class="p">,</span><span class="s1">&#39;ko&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/222140a042cf122106a2e0fc21dfe3b360cd9b50c654f45346142438cdf761e0.png" src="../../_images/222140a042cf122106a2e0fc21dfe3b360cd9b50c654f45346142438cdf761e0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kernel</span> <span class="o">=</span> <span class="s2">&quot;3DT0-H&quot;</span>
+<span class="n">elas_prop</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="o">*</span><span class="n">G</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">nu</span><span class="p">),</span> <span class="n">nu</span><span class="p">])</span>
+<span class="n">eta</span><span class="o">=</span><span class="mf">3.0</span>
+<span class="n">max_leaf_size</span> <span class="o">=</span> <span class="mi">64</span>
+<span class="n">eps_aca</span> <span class="o">=</span> <span class="mf">1.0e-3</span>
+<span class="n">h</span> <span class="o">=</span> <span class="n">BEMatrix</span><span class="p">(</span><span class="n">kernel</span><span class="p">,</span> <span class="n">coor</span><span class="p">,</span> <span class="n">conn</span><span class="p">,</span> <span class="n">elas_prop</span><span class="p">,</span> <span class="n">max_leaf_size</span><span class="p">,</span> <span class="n">eta</span><span class="p">,</span> <span class="n">eps_aca</span><span class="p">)</span>
+<span class="c1"># checking that the mesh is properly ordered.... </span>
+<span class="c1"># mm=Mesh(coor.flatten(),conn.flatten(),kernel)</span>
+<span class="c1"># all_norms =np.zeros((mm.num_elements(),3))</span>
+<span class="c1"># for e in range(mm.num_elements()):</span>
+<span class="c1">#     all_norms[e]=mm.get_element_normal(e)</span>
+<span class="c1"># np.mean(all_norms[:,2]) </span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>NUM OF AVAILABLE OMP THREADS: 16
+</pre></div>
+</div>
+</div>
+</div>
+<section id="stresses-around-a-3d-penny-shaped-crack-under-uniform-remote-tension">
+<h2>Stresses around a 3D penny-shaped crack under uniform remote tension<a class="headerlink" href="#stresses-around-a-3d-penny-shaped-crack-under-uniform-remote-tension" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># collocation points - to compute analytical solutionm for width and then estimate stress &amp; displacement at observations points</span>
+<span class="n">colpts</span><span class="o">=</span><span class="n">h</span><span class="o">.</span><span class="n">getCollocationPoints</span><span class="p">()</span>
+<span class="n">r_col</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">colpts</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">colpts</span><span class="p">[::,</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># Crack opening displacement discontinuity from analytical solution </span>
+<span class="n">a</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">w</span> <span class="o">=</span> <span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">nu</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">G</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">a</span><span class="o">**</span><span class="mi">2</span><span class="o">-</span><span class="n">r_col</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>   
+<span class="c1">#  all DDs....</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">([</span><span class="n">w</span><span class="o">*</span><span class="mf">0.</span><span class="p">,</span><span class="n">w</span><span class="o">*</span><span class="mf">0.</span><span class="p">,</span><span class="n">w</span><span class="p">])</span>
+
+<span class="c1"># observation points</span>
+<span class="n">r_obs</span> <span class="o">=</span> <span class="n">rr</span>
+<span class="n">z_obs</span><span class="o">=</span><span class="mf">0.6</span>
+
+<span class="n">obs_pts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">([</span><span class="n">r_obs</span> <span class="p">,</span> <span class="mf">0.</span><span class="o">*</span><span class="n">r_obs</span><span class="p">,</span> <span class="n">r_obs</span><span class="o">*</span><span class="mf">0.</span><span class="o">+</span><span class="n">z_obs</span><span class="p">])</span>
+
+<span class="n">sxx</span><span class="p">,</span><span class="n">syy</span><span class="p">,</span><span class="n">szz</span><span class="p">,</span><span class="n">sxy</span><span class="p">,</span><span class="n">sxz</span><span class="p">,</span><span class="n">syz</span>  <span class="o">=</span><span class="n">stresses_tensile_penny_shaped</span><span class="p">(</span><span class="n">r_obs</span><span class="p">,</span><span class="n">r_obs</span><span class="o">*</span><span class="mi">0</span><span class="p">,</span><span class="n">z_obs</span><span class="p">,</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">sig</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">nu</span><span class="o">=</span><span class="n">nu</span><span class="p">,</span><span class="n">G</span><span class="o">=</span><span class="n">G</span><span class="p">)</span>
+
+
+<span class="c1"># computation of stress observations from bigwham</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="n">zt</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">process_time</span><span class="p">()</span>
+<span class="n">stress</span><span class="o">=</span><span class="n">h</span><span class="o">.</span><span class="n">compute_stresses</span><span class="p">(</span><span class="n">obs_pts</span><span class="p">,</span><span class="o">-</span><span class="n">d</span><span class="p">)</span>   <span class="c1"># minus sign due to convention of positive dd in overlap in the inner of Bigwham....</span>
+<span class="n">zt</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">process_time</span><span class="p">()</span>
+<span class="n">elapsed</span> <span class="o">=</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">process_time</span><span class="p">()</span> <span class="o">-</span> <span class="n">zt</span><span class="p">)</span> 
+<span class="c1">#print(&quot;number of active threads for Bigwham&quot;, h.get_omp_threads())</span>
+<span class="c1">#print(&quot;elapsed time&quot;, elapsed)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># evolution of szz along x at z=z_offset</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r_obs</span><span class="p">,</span><span class="n">stress</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r_obs</span><span class="p">,</span><span class="n">szz</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;BigWham&#39;</span><span class="p">,</span><span class="s1">&#39;Analytical&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$r$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$\sigma_</span><span class="si">{33}</span><span class="s1">$&#39;</span><span class="p">)</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">((</span><span class="n">szz</span><span class="o">-</span><span class="n">stress</span><span class="p">[:,</span><span class="mi">2</span><span class="p">])</span><span class="o">/</span><span class="n">szz</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.00463576488112114
+</pre></div>
+</div>
+<img alt="../../_images/1d2421b813c3ea6b24892a6fa1e41d946d31a29a1637a8861e455d11784de0a2.png" src="../../_images/1d2421b813c3ea6b24892a6fa1e41d946d31a29a1637a8861e455d11784de0a2.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># evolution of srr=sxx along x at z=z_offset</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r_obs</span><span class="p">,</span><span class="n">stress</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r_obs</span><span class="p">,</span><span class="n">sxx</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;BigWham&#39;</span><span class="p">,</span><span class="s1">&#39;Analytical&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$r$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$\sigma_</span><span class="si">{11}</span><span class="s1">$&#39;</span><span class="p">)</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">((</span><span class="n">sxx</span><span class="o">-</span><span class="n">stress</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="n">sxx</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.004523447581996925
+</pre></div>
+</div>
+<img alt="../../_images/d9c6ea19de3a6022c8256b23786b37deecf2ddcf4624fc481f4fd236d213d844.png" src="../../_images/d9c6ea19de3a6022c8256b23786b37deecf2ddcf4624fc481f4fd236d213d844.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># evolution of stt=s22 along x at z=z_offset</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r_obs</span><span class="p">,</span><span class="n">stress</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>   
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r_obs</span><span class="p">,</span><span class="n">syy</span><span class="p">)</span>          
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;BigWham&#39;</span><span class="p">,</span><span class="s1">&#39;Analytical&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$r$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$\sigma_</span><span class="si">{22}</span><span class="s1">$&#39;</span><span class="p">)</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">((</span><span class="n">syy</span><span class="o">-</span><span class="n">stress</span><span class="p">[:,</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="n">syy</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.004401038392071579
+</pre></div>
+</div>
+<img alt="../../_images/5468d0ea08eb51ba0cf1f5df615a07a4bf06d4105cb4648d0d85e5838b9674c5.png" src="../../_images/5468d0ea08eb51ba0cf1f5df615a07a4bf06d4105cb4648d0d85e5838b9674c5.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># evolution of srz=s13 along x at z=z_offset</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r_obs</span><span class="p">,</span><span class="n">stress</span><span class="p">[:,</span><span class="mi">4</span><span class="p">],</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r_obs</span><span class="p">,</span><span class="n">sxz</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;BigWham&#39;</span><span class="p">,</span><span class="s1">&#39;Analytical&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$r$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$\sigma_</span><span class="si">{13}</span><span class="s1">$&#39;</span><span class="p">)</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">((</span><span class="n">sxz</span><span class="o">-</span><span class="n">stress</span><span class="p">[:,</span><span class="mi">4</span><span class="p">])</span><span class="o">/</span><span class="n">sxz</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.004718281527324878
+</pre></div>
+</div>
+<img alt="../../_images/e820d802763f9662280e233233733cb91f2aa3f3661bec9983ebf1c723396706.png" src="../../_images/e820d802763f9662280e233233733cb91f2aa3f3661bec9983ebf1c723396706.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># evolution of srt=s12 along x at z=z_offset</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r_obs</span><span class="p">,</span><span class="n">stress</span><span class="p">[:,</span><span class="mi">3</span><span class="p">],</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r_obs</span><span class="p">,</span><span class="n">sxy</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;BigWham&#39;</span><span class="p">,</span><span class="s1">&#39;Analytical&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$r$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$\sigma_</span><span class="si">{12}</span><span class="s1">$&#39;</span><span class="p">)</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">((</span><span class="n">sxy</span><span class="o">-</span><span class="n">stress</span><span class="p">[:,</span><span class="mi">3</span><span class="p">])))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6.107203014096405e-09
+</pre></div>
+</div>
+<img alt="../../_images/d16706a3c79c62603160d7bd342a3bf44790a189435e0dbab54adcbba52bc8af.png" src="../../_images/d16706a3c79c62603160d7bd342a3bf44790a189435e0dbab54adcbba52bc8af.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># evolution of stz=s23 along x at z=z_offset</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r_obs</span><span class="p">,</span><span class="n">stress</span><span class="p">[:,</span><span class="mi">5</span><span class="p">],</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r_obs</span><span class="p">,</span><span class="n">syz</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;BigWham&#39;</span><span class="p">,</span><span class="s1">&#39;Analytical&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$r$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$\sigma_</span><span class="si">{23}</span><span class="s1">$&#39;</span><span class="p">)</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">((</span><span class="n">syz</span><span class="o">-</span><span class="n">stress</span><span class="p">[:,</span><span class="mi">5</span><span class="p">])))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.94990312714581e-09
+</pre></div>
+</div>
+<img alt="../../_images/03b88ab6468f3f3c57ced5c85087a5fb4cb9a5a27b0889abb78b63b6e736c460.png" src="../../_images/03b88ab6468f3f3c57ced5c85087a5fb4cb9a5a27b0889abb78b63b6e736c460.png" />
+</div>
+</div>
+</section>
+<section id="displacements-around-a-3d-penny-shaped-crack-under-uniform-remote-tension">
+<h2>Displacements around a 3D penny-shaped crack under uniform remote tension<a class="headerlink" href="#displacements-around-a-3d-penny-shaped-crack-under-uniform-remote-tension" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># displacements</span>
+<span class="n">u_x</span><span class="p">,</span><span class="n">u_y</span><span class="p">,</span><span class="n">u_z</span><span class="o">=</span><span class="n">displacement_tensile_penny_shaped</span><span class="p">(</span><span class="n">rr</span><span class="p">,</span><span class="mf">0.</span><span class="o">*</span><span class="n">rr</span><span class="p">,</span><span class="n">z_obs</span><span class="p">,</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">sig</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">nu</span><span class="o">=</span><span class="n">nu</span><span class="p">,</span><span class="n">G</span><span class="o">=</span><span class="n">G</span><span class="p">)</span>
+
+<span class="c1"># via collocation bem</span>
+<span class="n">disp</span><span class="o">=</span><span class="n">h</span><span class="o">.</span><span class="n">compute_displacements</span><span class="p">(</span><span class="n">obs_pts</span><span class="p">,</span><span class="o">-</span><span class="n">d</span><span class="p">)</span>   <span class="c1"># minus sign due to convention of positive dd in overlap in the inner of Bigwham....</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r_obs</span><span class="p">,</span><span class="n">disp</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r_obs</span><span class="p">,</span><span class="n">u_x</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;BigWham&#39;</span><span class="p">,</span><span class="s1">&#39;Analytical&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$r$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$u_</span><span class="si">{1}</span><span class="s1">$&#39;</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">((</span><span class="n">u_x</span><span class="o">-</span><span class="n">disp</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="n">u_x</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.004485669959025099
+</pre></div>
+</div>
+<img alt="../../_images/3478a9d774e1a4483914750b4dc27e45a87e34ccb715966c6ab57fd7b62c4abf.png" src="../../_images/3478a9d774e1a4483914750b4dc27e45a87e34ccb715966c6ab57fd7b62c4abf.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r_obs</span><span class="p">,</span><span class="n">disp</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r_obs</span><span class="p">,</span><span class="n">u_z</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;BigWham&#39;</span><span class="p">,</span><span class="s1">&#39;Analytical&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$r$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$u_</span><span class="si">{3}</span><span class="s1">$&#39;</span><span class="p">)</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">((</span><span class="n">u_z</span><span class="o">-</span><span class="n">disp</span><span class="p">[:,</span><span class="mi">2</span><span class="p">])</span><span class="o">/</span><span class="n">u_z</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.004671262317105499
+</pre></div>
+</div>
+<img alt="../../_images/48644e2e5874fc7e1971ccebbf2442706f6c8d0f0c4f2bd63ba4b655f3082067.png" src="../../_images/48644e2e5874fc7e1971ccebbf2442706f6c8d0f0c4f2bd63ba4b655f3082067.png" />
+</div>
+</div>
+<section id="displacement-along-another-line-z-0-1">
+<h3>Displacement along another line &#64; z=0.1<a class="headerlink" href="#displacement-along-another-line-z-0-1" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># displacements along another line </span>
+<span class="n">obs_pts_2</span> <span class="o">=</span>  <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">([</span><span class="mf">1.</span><span class="o">*</span><span class="n">r_obs</span><span class="o">+</span><span class="mf">1.3</span> <span class="p">,</span> <span class="mf">0.</span><span class="o">*</span><span class="n">r_obs</span><span class="o">+</span><span class="mf">0.02</span><span class="p">,</span><span class="mf">0.1</span><span class="o">+</span> <span class="mi">0</span><span class="o">*</span><span class="n">r_obs</span><span class="p">])</span>
+<span class="n">u_x</span><span class="p">,</span><span class="n">u_y</span><span class="p">,</span><span class="n">u_z</span><span class="o">=</span><span class="n">displacement_tensile_penny_shaped</span><span class="p">(</span><span class="n">obs_pts_2</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="n">obs_pts_2</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span><span class="n">obs_pts_2</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">sig</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">nu</span><span class="o">=</span><span class="n">nu</span><span class="p">,</span><span class="n">G</span><span class="o">=</span><span class="n">G</span><span class="p">)</span>
+
+<span class="c1"># via collocation bem</span>
+<span class="n">disp</span><span class="o">=</span><span class="n">h</span><span class="o">.</span><span class="n">compute_displacements</span><span class="p">(</span><span class="n">obs_pts_2</span><span class="p">,</span><span class="o">-</span><span class="n">d</span><span class="p">)</span>   <span class="c1"># minus sign due to convention of positive dd in overlap in the inner of Bigwham....</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r_obs</span><span class="p">,</span><span class="n">disp</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r_obs</span><span class="p">,</span><span class="n">u_x</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;BigWham&#39;</span><span class="p">,</span><span class="s1">&#39;Analytical&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$r$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$u_</span><span class="si">{1}</span><span class="s1">$&#39;</span><span class="p">)</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">((</span><span class="n">u_x</span><span class="o">-</span><span class="n">disp</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="n">u_x</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.0045057184415606385
+</pre></div>
+</div>
+<img alt="../../_images/27bb2f7537e435dd4f4b76f0eab62d99c6bb90080b6bdd24762284c705c4322e.png" src="../../_images/27bb2f7537e435dd4f4b76f0eab62d99c6bb90080b6bdd24762284c705c4322e.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r_obs</span><span class="p">,</span><span class="n">disp</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r_obs</span><span class="p">,</span><span class="n">u_y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;BigWham&#39;</span><span class="p">,</span><span class="s1">&#39;Analytical&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$r$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$u_</span><span class="si">{2}</span><span class="s1">$&#39;</span><span class="p">)</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">((</span><span class="n">u_y</span><span class="o">-</span><span class="n">disp</span><span class="p">[:,</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="n">u_y</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.00462571868645785
+</pre></div>
+</div>
+<img alt="../../_images/2f218b383edbf5d4c94354d1e057eaf9036c1b8c004cd873da97a120458140f7.png" src="../../_images/2f218b383edbf5d4c94354d1e057eaf9036c1b8c004cd873da97a120458140f7.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r_obs</span><span class="p">,</span><span class="n">disp</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r_obs</span><span class="p">,</span><span class="n">u_z</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;BigWham&#39;</span><span class="p">,</span><span class="s1">&#39;Analytical&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$r$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$u_</span><span class="si">{3}</span><span class="s1">$&#39;</span><span class="p">)</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">((</span><span class="n">u_z</span><span class="o">-</span><span class="n">disp</span><span class="p">[:,</span><span class="mi">2</span><span class="p">])</span><span class="o">/</span><span class="n">u_z</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.004634909828438432
+</pre></div>
+</div>
+<img alt="../../_images/42c1421cc52132730c6e79c6e66d4ef9b8351b808150b37820dab951961e82d6.png" src="../../_images/42c1421cc52132730c6e79c6e66d4ef9b8351b808150b37820dab951961e82d6.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./examples/3d"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="penny_shaped_crack_tensile_T0.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Penny-shaped (radial) crack under uniform tension - displacement discontinuity solution</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="penny_shaped_crack_tensile_R0.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Penny-shaped crack under uniform tension - solution on a cartesian mesh made of square elements</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stresses-around-a-3d-penny-shaped-crack-under-uniform-remote-tension">Stresses around a 3D penny-shaped crack under uniform remote tension</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#displacements-around-a-3d-penny-shaped-crack-under-uniform-remote-tension">Displacements around a 3D penny-shaped crack under uniform remote tension</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#displacement-along-another-line-z-0-1">Displacement along another line @ z=0.1</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Brice Lecampion
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <p>
+© Copyright 2025.
+</p>   
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

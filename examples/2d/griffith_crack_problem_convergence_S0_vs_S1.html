@@ -1,0 +1,1404 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Piece-wise constant versus piece-wise linear discretization - accuracy for uniform meshes &#8212; BigWham Tutorials</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'examples/2d/griffith_crack_problem_convergence_S0_vs_S1';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Elastic fields around a finite dislocation segment" href="finite_dislocation_2d.html" />
+    <link rel="prev" title="Elastic fields around a Griffith crack" href="displacements_stresses_griffith_crack_2DS0.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../frontmatter.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">BigWham Tutorials</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../frontmatter.html">
+                    Welcome
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Starting with BigWham</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="bigwham_first_steps_griffith.html">First Steps with BigWham</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bigwham_hmat_computational_scaling_griffith.html">Hierarchical matrix scaling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="displacements_stresses_griffith_crack_2DS0.html">Elastic fields around a Griffith crack</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">2D Examples</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Piece-wise constant versus piece-wise linear discretization - accuracy for uniform meshes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="finite_dislocation_2d.html">Elastic fields around a finite dislocation segment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="arc_crack_isotropic_tension.html">Arc crack under remote uniform isotropic tension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Dugdale_crack_2DS0.html">2d Bilby-Cottrell-Swinden-Dugdale Cohesive Crack example</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="griffith_crack_non_uniform_mesh_S0_vs_S1.html">Uniform vs non-uniform mesh size for a simple straigth crack : S0 vs S1 elements</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">3D Examples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../3d/penny_shaped_crack_tensile_T0.html">Penny-shaped (radial) crack under uniform tension - displacement discontinuity solution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3d/displacements_stresses_penny_shaped_crack_tensile.html">Elastic field around a penny-shaped (radial) crack under uniform tension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3d/penny_shaped_crack_tensile_R0.html">Penny-shaped crack under uniform tension - solution on a cartesian mesh made of square elements</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../3d/blade_crack_tensile_T0.html">Blade (rectangular) crack under uniform tension - displacement discontinuity solution</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/examples/2d/griffith_crack_problem_convergence_S0_vs_S1.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Piece-wise constant versus piece-wise linear discretization - accuracy for uniform meshes</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#piece-wise-constant-interpolation-element-2ds0">Piece-wise constant interpolation element (2DS0)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#piece-wise-linear-element-2ds1">Piece-wise linear element (2DS1)</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="piece-wise-constant-versus-piece-wise-linear-discretization-accuracy-for-uniform-meshes">
+<h1>Piece-wise constant versus piece-wise linear discretization - accuracy for uniform meshes<a class="headerlink" href="#piece-wise-constant-versus-piece-wise-linear-discretization-accuracy-for-uniform-meshes" title="Link to this heading">#</a></h1>
+<p>Plane Elasticity problem</p>
+<p>We explore the rate of convergence of collocation BEM as we refine the mesh for both 2DS0 (piece-wise constant) and 2DS1 (piece-wise linear) elements for the Griffith problem: 2D straight crack in an infinite isotropic elastic medium  under uniform remote tension.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># imports etc.</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">from</span> <span class="nn">bigwham4py</span> <span class="kn">import</span> <span class="n">BEMatrix</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.sparse.linalg</span> <span class="kn">import</span> <span class="n">gmres</span>
+
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s1">&#39;../..&#39;</span><span class="p">))</span>
+<span class="kn">from</span> <span class="nn">solutions.griffith_crack</span> <span class="kn">import</span> <span class="n">width_griffith</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We define a function in order to solve the Griffith problem with a given number of elements: either for S0 elements (piece-wise constant displacement interpolation) or S1 elements (piece-wise linear interpolation over the element but discontinuous between element). Note that when computing the relative error norms, or root mean-square error, we excule the last element near the tip.</p>
+<p>We also set the elastic properties of the medium. Note that Bigwham’s input are the Young’s modulus <span class="math notranslate nohighlight">\(E\)</span> and Poisson’s ratio <span class="math notranslate nohighlight">\(\nu\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">nu</span> <span class="o">=</span> <span class="mf">0.25</span>
+<span class="n">E</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">G</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">nu</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">solveGriffith</span><span class="p">(</span><span class="n">nelts</span><span class="p">,</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">kernel</span> <span class="o">=</span> <span class="s2">&quot;2DS0-H&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Wrapper function to solve the Griffith problem with a given number of elements + element type for a crack in [-a,a] along the e1 axis&quot;&quot;&quot;</span>
+    <span class="n">coor1D</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">nelts</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">coor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">coor1D</span><span class="p">,</span> <span class="n">coor1D</span> <span class="o">*</span> <span class="mf">0.0</span><span class="p">]))</span>
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fromfunction</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">:</span> <span class="n">i</span> <span class="o">+</span> <span class="n">j</span><span class="p">,</span> <span class="p">(</span><span class="n">nelts</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int_</span><span class="p">)</span>
+    <span class="c1"># H-matrix parameters - choosen here to have an accurate solution</span>
+    <span class="n">max_leaf_size</span><span class="o">=</span><span class="mi">100</span>
+    <span class="n">eta</span><span class="o">=</span><span class="mf">2.</span>
+    <span class="n">eps_aca</span><span class="o">=</span><span class="mf">1.e-6</span>
+    <span class="n">elas_prop</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">E</span><span class="p">,</span> <span class="n">nu</span><span class="p">])</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">BEMatrix</span><span class="p">(</span><span class="n">kernel</span><span class="p">,</span> <span class="n">coor</span><span class="p">,</span> <span class="n">conn</span><span class="p">,</span> <span class="n">elas_prop</span><span class="p">,</span> <span class="n">max_leaf_size</span><span class="p">,</span> <span class="n">eta</span><span class="p">,</span> <span class="n">eps_aca</span><span class="p">)</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">h</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>
+    <span class="n">jac_ilu</span><span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">H_ILU_prec</span><span class="p">()</span> <span class="c1"># we use a ILU decomposition of the full block for efficient solution via gmres</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">gmres</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span><span class="n">M</span><span class="o">=</span><span class="n">jac_ilu</span><span class="p">,</span><span class="n">rtol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">dd</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">col_pts</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">getMeshCollocationPoints</span><span class="p">()</span>
+    <span class="n">x_coor_</span><span class="o">=</span><span class="n">col_pts</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+    <span class="c1"># Crack opening displacement discontinuity from analytical solution </span>
+    <span class="c1"># note that 2DS1 segment have their solution at nodes.... </span>
+    <span class="c1"># note that 2DS1 segment have displacement disconinuity at element vertex for each element</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">kernel</span> <span class="o">==</span><span class="s2">&quot;2DS1-H&quot;</span><span class="p">):</span>
+        <span class="n">x_coor_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">nelts</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nelts</span><span class="p">):</span>
+            <span class="n">x_coor_</span><span class="p">[</span><span class="n">e</span><span class="o">*</span><span class="mi">2</span><span class="p">:</span><span class="n">e</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span><span class="o">=</span><span class="n">coor1D</span><span class="p">[</span><span class="n">conn</span><span class="p">[</span><span class="n">e</span><span class="p">]]</span>
+    <span class="n">w_true</span><span class="o">=</span><span class="n">width_griffith</span><span class="p">(</span><span class="n">x_coor_</span><span class="p">,</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">sig</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">G</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">nu</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
+    <span class="n">w_0</span> <span class="o">=</span> <span class="n">width_griffith</span><span class="p">(</span><span class="n">x_coor_</span><span class="o">*</span><span class="mf">0.</span><span class="p">,</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">sig</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">G</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">nu</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
+    <span class="c1"># we compute error - metric w.o accounting for the point near the tip</span>
+    <span class="n">rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dd</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">w_true</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">w_true</span><span class="o">.</span><span class="n">size</span><span class="o">-</span><span class="mi">2</span><span class="p">))</span>
+    <span class="n">l2rel</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">((</span><span class="n">dd</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">w_true</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])))</span><span class="o">/</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">w_true</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="n">l2rel_wo</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">((</span><span class="n">dd</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">w_true</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])))</span><span class="o">/</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">w_0</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="k">return</span> <span class="n">x_coor_</span><span class="p">,</span><span class="n">dd</span><span class="p">,</span><span class="n">w_true</span><span class="p">,</span><span class="n">rmse</span><span class="p">,</span><span class="n">l2rel</span><span class="p">,</span><span class="n">l2rel_wo</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="piece-wise-constant-interpolation-element-2ds0">
+<h2>Piece-wise constant interpolation element (2DS0)<a class="headerlink" href="#piece-wise-constant-interpolation-element-2ds0" title="Link to this heading">#</a></h2>
+<p>Let’s first look at the solution for S0 element, using 30 elements. We see that the numerical solution estimate of the fracture width is sligthly larger than the true solution. This is typical for this type of boundary element (see Crouch &amp; Starfield - chapter 5).</p>
+<div class="cell tag_{_____&quot;tags&quot;:_[_________&quot;scroll-output&quot;,_____]_} docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xcorr</span><span class="p">,</span><span class="n">dd_sol</span><span class="p">,</span><span class="n">w_true</span><span class="p">,</span><span class="n">rmse</span><span class="p">,</span><span class="n">l2rel</span><span class="p">,</span><span class="n">l2r_w0</span> <span class="o">=</span> <span class="n">solveGriffith</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;2DS0-H&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xcorr</span><span class="p">,</span> <span class="n">dd_sol</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;.&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xcorr</span><span class="p">,</span> <span class="n">w_true</span><span class="p">,</span> <span class="s2">&quot;-r&quot;</span><span class="p">)</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;width(x)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;Numerical (S0)&#39;</span><span class="p">,</span><span class="s1">&#39;Analytical&#39;</span><span class="p">]);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>NUM OF AVAILABLE OMP THREADS: 16
+</pre></div>
+</div>
+<img alt="../../_images/bf039888d27ba82db0654a92ae600235acc1edbca3fef0202ba261db9fa4a1ea.png" src="../../_images/bf039888d27ba82db0654a92ae600235acc1edbca3fef0202ba261db9fa4a1ea.png" />
+</div>
+</div>
+<p>Now, let’s perform the same numerical simulation for different number of elements. We solve the problem increase the number of elements from 10 to 10’000. We compute the “approximate” rate of convergence of both the rmse and l2 relative error.
+Note that the RMSE and relative L2 norm are defined respetively as</p>
+<div class="math notranslate nohighlight">
+\[rmse = \sqrt{\sum_{i=1,N} (num_i - true_i)^2/N} \]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[L_{2 rel} = \frac{\||  \mathbf{num} - \mathbf{true} \||_2}{\|| \mathbf{true} \||_2}\]</div>
+<p>such that the rate of convergence of the rmse is about 1/2 of the one of the relative L2 norm.</p>
+<p>To esitmate the rate of convernce of an error metric <span class="math notranslate nohighlight">\(e\)</span>, we compute:
+$<span class="math notranslate nohighlight">\( \beta = \log{(e_2/e_1)}/\log{(N_1/N_2)} \)</span>$</p>
+<p>where <span class="math notranslate nohighlight">\(e_1\)</span> is the error for <span class="math notranslate nohighlight">\(N_1\)</span> unknowns, respectively for <span class="math notranslate nohighlight">\(e_2\)</span> (with <span class="math notranslate nohighlight">\(N_2&lt;N_1\)</span>).</p>
+<div class="cell tag_{_____&quot;tags&quot;:_[_________&quot;scroll-output&quot;,_____]_} docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">list_nelts_P0</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">500</span><span class="p">,</span><span class="mi">1000</span><span class="p">,</span><span class="mi">2000</span><span class="p">,</span><span class="mi">5000</span><span class="p">,</span><span class="mi">10000</span><span class="p">])</span>
+<span class="n">rmse_P0</span> <span class="o">=</span><span class="p">[]</span>
+<span class="n">l2_rel_P0</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">l2_rel_wo_P0</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">list_nelts_P0</span><span class="p">:</span>
+    <span class="n">col_pts</span><span class="p">,</span><span class="n">dd_sol</span><span class="p">,</span><span class="n">wtr</span><span class="p">,</span><span class="n">rmse_n</span><span class="p">,</span><span class="n">lerel_n</span><span class="p">,</span><span class="n">lerel_wo_n</span> <span class="o">=</span> <span class="n">solveGriffith</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;2DS0-H&quot;</span><span class="p">)</span>
+    <span class="n">rmse_P0</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rmse_n</span><span class="p">)</span>
+    <span class="n">l2_rel_P0</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lerel_n</span><span class="p">)</span>
+    <span class="n">l2_rel_wo_P0</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lerel_wo_n</span><span class="p">)</span>
+    
+<span class="c1"># computing the rate of convergence</span>
+<span class="n">beta_rmse_P0</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">rmse_P0</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="n">rmse_P0</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">list_nelts_P0</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">list_nelts_P0</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">list_nelts_P0</span><span class="o">.</span><span class="n">size</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span>
+<span class="n">beta_l2_P0</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">l2_rel_P0</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="n">l2_rel_P0</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">list_nelts_P0</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">list_nelts_P0</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">list_nelts_P0</span><span class="o">.</span><span class="n">size</span><span class="o">-</span><span class="mi">1</span><span class="p">)];</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>BigWham using 8 OpenMP threads
+ Now setting things for kernel ... 2DS0-H with properties size 2
+--------------------
+Hierarchical representation creation ...
+Cluster tree creation time for the source mesh :  0
+Cluster tree creation time for the source mesh :  0
+Time for binary cluster tree construction  4e-06
+ binary cluster tree depth =0
+ Number of blocks =1
+ Number of full blocks =1
+ Number of low rank blocks =0
+Pattern Created 
+Hierarchical representation complete.
+--------------------
+Populating Hierarchical matrix ...
+ Loop on full blocks construction  
+ N full blocks 1 
+Loop on low rank blocks construction
+N low rank blocks 0
+dof_dimension: 2
+Creation of hmat done in 0.001775
+Compression ratio - 1
+Hmat object - built 
+Hierarchical matrix construction complete.
+Compression Ratio = 1, eps_aca = 1e-06, eta = 2
+Hierarchical matrix  construction time = :  0.001788
+BigWham constructed Hmat of size (30 x 2) X (30 x 2)
+--------------------
+NUM OF AVAILABLE OMP THREADS: 16
+BigWham using 8 OpenMP threads
+ Now setting things for kernel ... 2DS0-H with properties size 2
+--------------------
+Hierarchical representation creation ...
+Cluster tree creation time for the source mesh :  0
+Cluster tree creation time for the source mesh :  0
+Time for binary cluster tree construction  0
+ binary cluster tree depth =0
+ Number of blocks =1
+ Number of full blocks =1
+ Number of low rank blocks =0
+Pattern Created 
+Hierarchical representation complete.
+--------------------
+Populating Hierarchical matrix ...
+ Loop on full blocks construction  
+ N full blocks 1 
+Loop on low rank blocks construction
+N low rank blocks 0
+dof_dimension: 2
+Creation of hmat done in 0.000432
+Compression ratio - 1
+Hmat object - built 
+Hierarchical matrix construction complete.
+Compression Ratio = 1, eps_aca = 1e-06, eta = 2
+Hierarchical matrix  construction time = :  0.00044
+BigWham constructed Hmat of size (10 x 2) X (10 x 2)
+--------------------
+NUM OF AVAILABLE OMP THREADS: 16
+BigWham using 8 OpenMP threads
+ Now setting things for kernel ... 2DS0-H with properties size 2
+--------------------
+Hierarchical representation creation ...
+Cluster tree creation time for the source mesh :  0
+Cluster tree creation time for the source mesh :  0
+Time for binary cluster tree construction  1e-06
+ binary cluster tree depth =0
+ Number of blocks =1
+ Number of full blocks =1
+ Number of low rank blocks =0
+Pattern Created 
+Hierarchical representation complete.
+--------------------
+Populating Hierarchical matrix ...
+ Loop on full blocks construction  
+ N full blocks 1 
+Loop on low rank blocks construction
+N low rank blocks 0
+dof_dimension: 2
+Creation of hmat done in 0.00082
+Compression ratio - 1
+Hmat object - built 
+Hierarchical matrix construction complete.
+Compression Ratio = 1, eps_aca = 1e-06, eta = 2
+Hierarchical matrix  construction time = :  0.000827
+BigWham constructed Hmat of size (20 x 2) X (20 x 2)
+--------------------
+NUM OF AVAILABLE OMP THREADS: 16
+BigWham using 8 OpenMP threads
+ Now setting things for kernel ... 2DS0-H with properties size 2
+--------------------
+Hierarchical representation creation ...
+Cluster tree creation time for the source mesh :  0
+Cluster tree creation time for the source mesh :  0
+Time for binary cluster tree construction  3e-06
+ binary cluster tree depth =0
+ Number of blocks =1
+ Number of full blocks =1
+ Number of low rank blocks =0
+Pattern Created 
+Hierarchical representation complete.
+--------------------
+Populating Hierarchical matrix ...
+ Loop on full blocks construction  
+ N full blocks 1 
+Loop on low rank blocks construction
+N low rank blocks 0
+dof_dimension: 2
+Creation of hmat done in 0.004229
+Compression ratio - 1
+Hmat object - built 
+Hierarchical matrix construction complete.
+Compression Ratio = 1, eps_aca = 1e-06, eta = 2
+Hierarchical matrix  construction time = :  0.004236
+BigWham constructed Hmat of size (50 x 2) X (50 x 2)
+--------------------
+NUM OF AVAILABLE OMP THREADS: 16
+BigWham using 8 OpenMP threads
+ Now setting things for kernel ... 2DS0-H with properties size 2
+--------------------
+Hierarchical representation creation ...
+Cluster tree creation time for the source mesh :  0
+Cluster tree creation time for the source mesh :  0
+Time for binary cluster tree construction  1e-06
+ binary cluster tree depth =0
+ Number of blocks =1
+ Number of full blocks =1
+ Number of low rank blocks =0
+Pattern Created 
+Hierarchical representation complete.
+--------------------
+Populating Hierarchical matrix ...
+ Loop on full blocks construction  
+ N full blocks 1 
+Loop on low rank blocks construction
+N low rank blocks 0
+dof_dimension: 2
+Creation of hmat done in 0.016344
+Compression ratio - 1
+Hmat object - built 
+Hierarchical matrix construction complete.
+Compression Ratio = 1, eps_aca = 1e-06, eta = 2
+Hierarchical matrix  construction time = :  0.016354
+BigWham constructed Hmat of size (100 x 2) X (100 x 2)
+--------------------
+NUM OF AVAILABLE OMP THREADS: 16
+BigWham using 8 OpenMP threads
+ Now setting things for kernel ... 2DS0-H with properties size 2
+--------------------
+Hierarchical representation creation ...
+Cluster tree creation time for the source mesh :  0
+Cluster tree creation time for the source mesh :  0
+Time for binary cluster tree construction  8e-06
+ binary cluster tree depth =1
+ Number of blocks =4
+ Number of full blocks =4
+ Number of low rank blocks =0
+Pattern Created 
+Hierarchical representation complete.
+--------------------
+Populating Hierarchical matrix ...
+ Loop on full blocks construction  
+ N full blocks 4 
+Loop on low rank blocks construction
+N low rank blocks 0
+dof_dimension: 2
+Creation of hmat done in 0.016894
+Compression ratio - 1
+Hmat object - built 
+Hierarchical matrix construction complete.
+Compression Ratio = 1, eps_aca = 1e-06, eta = 2
+Hierarchical matrix  construction time = :  0.016904
+BigWham constructed Hmat of size (200 x 2) X (200 x 2)
+--------------------
+NUM OF AVAILABLE OMP THREADS: 16
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>BigWham using 8 OpenMP threads
+ Now setting things for kernel ... 2DS0-H with properties size 2
+--------------------
+Hierarchical representation creation ...
+Cluster tree creation time for the source mesh :  0
+Cluster tree creation time for the source mesh :  0
+Time for binary cluster tree construction  7e-05
+ binary cluster tree depth =3
+ Number of blocks =46
+ Number of full blocks =22
+ Number of low rank blocks =24
+Pattern Created 
+Hierarchical representation complete.
+--------------------
+Populating Hierarchical matrix ...
+ Loop on full blocks construction  
+ N full blocks 22 
+Loop on low rank blocks construction
+N low rank blocks 24
+dof_dimension: 2
+Creation of hmat done in 0.038947
+Compression ratio - 0.428744
+Hmat object - built 
+Hierarchical matrix construction complete.
+Compression Ratio = 0.428744, eps_aca = 1e-06, eta = 2
+Hierarchical matrix  construction time = :  0.038957
+BigWham constructed Hmat of size (500 x 2) X (500 x 2)
+--------------------
+NUM OF AVAILABLE OMP THREADS: 16
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>BigWham using 8 OpenMP threads
+ Now setting things for kernel ... 2DS0-H with properties size 2
+--------------------
+Hierarchical representation creation ...
+Cluster tree creation time for the source mesh :  0
+Cluster tree creation time for the source mesh :  0
+Time for binary cluster tree construction  0.000217
+ binary cluster tree depth =4
+ Number of blocks =112
+ Number of full blocks =46
+ Number of low rank blocks =66
+Pattern Created 
+Hierarchical representation complete.
+--------------------
+Populating Hierarchical matrix ...
+ Loop on full blocks construction  
+ N full blocks 46 
+Loop on low rank blocks construction
+N low rank blocks 66
+dof_dimension: 2
+Creation of hmat done in 0.097046
+Compression ratio - 0.251934
+Hmat object - built 
+Hierarchical matrix construction complete.
+Compression Ratio = 0.251934, eps_aca = 1e-06, eta = 2
+Hierarchical matrix  construction time = :  0.097059
+BigWham constructed Hmat of size (1000 x 2) X (1000 x 2)
+--------------------
+NUM OF AVAILABLE OMP THREADS: 16
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>BigWham using 8 OpenMP threads
+ Now setting things for kernel ... 2DS0-H with properties size 2
+--------------------
+Hierarchical representation creation ...
+Cluster tree creation time for the source mesh :  0
+Cluster tree creation time for the source mesh :  0
+Time for binary cluster tree construction  0.000676
+ binary cluster tree depth =5
+ Number of blocks =250
+ Number of full blocks =94
+ Number of low rank blocks =156
+Pattern Created 
+Hierarchical representation complete.
+--------------------
+Populating Hierarchical matrix ...
+ Loop on full blocks construction  
+ N full blocks 94 
+Loop on low rank blocks construction
+N low rank blocks 156
+dof_dimension: 2
+Creation of hmat done in 0.252524
+Compression ratio - 0.143858
+Hmat object - built 
+Hierarchical matrix construction complete.
+Compression Ratio = 0.143858, eps_aca = 1e-06, eta = 2
+Hierarchical matrix  construction time = :  0.252539
+BigWham constructed Hmat of size (2000 x 2) X (2000 x 2)
+--------------------
+NUM OF AVAILABLE OMP THREADS: 16
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>BigWham using 8 OpenMP threads
+ Now setting things for kernel ... 2DS0-H with properties size 2
+--------------------
+Hierarchical representation creation ...
+Cluster tree creation time for the source mesh :  0
+Cluster tree creation time for the source mesh :  0
+Time for binary cluster tree construction  0.001876
+ binary cluster tree depth =6
+ Number of blocks =532
+ Number of full blocks =190
+ Number of low rank blocks =342
+Pattern Created 
+Hierarchical representation complete.
+--------------------
+Populating Hierarchical matrix ...
+ Loop on full blocks construction  
+ N full blocks 190 
+Loop on low rank blocks construction
+N low rank blocks 342
+dof_dimension: 2
+Creation of hmat done in 0.686957
+Compression ratio - 0.0737948
+Hmat object - built 
+Hierarchical matrix construction complete.
+Compression Ratio = 0.0737948, eps_aca = 1e-06, eta = 2
+Hierarchical matrix  construction time = :  0.686976
+BigWham constructed Hmat of size (5000 x 2) X (5000 x 2)
+--------------------
+NUM OF AVAILABLE OMP THREADS: 16
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">list_nelts_P0</span><span class="p">,</span> <span class="n">rmse_P0</span><span class="p">,</span> <span class="s2">&quot;-*&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">list_nelts_P0</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="n">list_nelts_P0</span><span class="o">**</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">beta_rmse_P0</span><span class="p">),</span> <span class="s2">&quot;-&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;S0 elements - RMSE vs Ndofs &#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;N dofs&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;RMSE&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;Bigwham&#39;</span><span class="p">,</span><span class="s1">&#39;estimate rate &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">beta_rmse_P0</span><span class="p">[::])</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">))]);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/9dda8545dedbef56a0a339ff2a26c756c60933ee20eb23feff17a9c6585e4422.png" src="../../_images/9dda8545dedbef56a0a339ff2a26c756c60933ee20eb23feff17a9c6585e4422.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">list_nelts_P0</span><span class="p">,</span> <span class="n">l2_rel_P0</span><span class="p">,</span> <span class="s2">&quot;-*&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">list_nelts_P0</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="n">list_nelts_P0</span><span class="o">**</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">beta_l2_P0</span><span class="p">),</span> <span class="s2">&quot;-&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;S0 elements - L2 norm relative error vs Ndofs &#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;N dofs&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;L2 norm of relative error&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;Bigwham&#39;</span><span class="p">,</span><span class="s1">&#39;estimate rate &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">beta_l2_P0</span><span class="p">[::])</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">))]);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/a264a272ec7d54be894d9d7a27516a4e703796b8a6f7935dac80356118b57e93.png" src="../../_images/a264a272ec7d54be894d9d7a27516a4e703796b8a6f7935dac80356118b57e93.png" />
+</div>
+</div>
+</section>
+<section id="piece-wise-linear-element-2ds1">
+<h2>Piece-wise linear element (2DS1)<a class="headerlink" href="#piece-wise-linear-element-2ds1" title="Link to this heading">#</a></h2>
+<p>We now move to the case of piece-wise linear elements. First, we perform a simulation with N=10 elements such that we can ‘compare’ with the solution obtained with 20 S0 elements. Because it’s fast we recompute here the S0 solution too. The solution with S1 elements is much more accurate than the S0 element for the same number of degree of freedoms, except near the tip (where the numerical opening obtained with S1 element is not zero)… the linear discretization is still insufficient to capture the LEFM square-root near-tip behavior.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The unknown of the piece-wise linear element are located at the vertex of the element, while the collocation points (where equilibrium is enforced) are located within the element at <span class="math notranslate nohighlight">\([-a/\sqrt{2},a/\sqrt{2} ]\)</span> (for an element of size <span class="math notranslate nohighlight">\(h=2a\)</span>).</p>
+</div>
+<div class="cell tag_{_____&quot;tags&quot;:_[_________&quot;scroll-output&quot;,_____]_} docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_corr_P0</span><span class="p">,</span><span class="n">dd_sol_P0</span><span class="p">,</span><span class="n">w_true_P0</span><span class="p">,</span><span class="n">rmse_P0_e</span><span class="p">,</span><span class="n">l2rel_P0_e</span><span class="p">,</span><span class="n">l2rel_P0_e_wo</span> <span class="o">=</span> <span class="n">solveGriffith</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;2DS0-H&quot;</span><span class="p">)</span>
+<span class="n">x_corr_P1</span><span class="p">,</span><span class="n">dd_sol_P1</span><span class="p">,</span><span class="n">w_true_P1</span><span class="p">,</span><span class="n">rmse_P1_e</span><span class="p">,</span><span class="n">l2rel_P1_e</span><span class="p">,</span><span class="n">l2rel_P1_e_wo</span>  <span class="o">=</span> <span class="n">solveGriffith</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;2DS1-H&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_corr_P0</span><span class="p">,</span> <span class="n">dd_sol_P0</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;.&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_corr_P1</span><span class="p">,</span> <span class="n">dd_sol_P1</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;*g&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_corr_P1</span><span class="p">,</span> <span class="n">w_true_P1</span><span class="p">,</span> <span class="s2">&quot;-r&quot;</span><span class="p">)</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;width(x)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;S0 elements&#39;</span><span class="p">,</span><span class="s1">&#39;S1 elements&#39;</span><span class="p">,</span><span class="s1">&#39;True&#39;</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;RMSE - SO elements:&#39;</span><span class="p">,</span><span class="n">rmse_P0_e</span><span class="p">,</span><span class="s1">&#39;, Relative error (L2) - S0 elements: &#39;</span><span class="p">,</span><span class="n">l2rel_P0_e</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;RMSE - S1 elements:&#39;</span><span class="p">,</span><span class="n">rmse_P1_e</span><span class="p">,</span><span class="s1">&#39;, Relative error (L2) - S1 elements: &#39;</span><span class="p">,</span><span class="n">l2rel_P1_e</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>BigWham using 8 OpenMP threads
+ Now setting things for kernel ... 2DS0-H with properties size 2
+--------------------
+Hierarchical representation creation ...
+Cluster tree creation time for the source mesh :  0
+Cluster tree creation time for the source mesh :  0
+Time for binary cluster tree construction  0.004622
+ binary cluster tree depth =7
+ Number of blocks =1102
+ Number of full blocks =382
+ Number of low rank blocks =720
+Pattern Created 
+Hierarchical representation complete.
+--------------------
+Populating Hierarchical matrix ...
+ Loop on full blocks construction  
+ N full blocks 382 
+Loop on low rank blocks construction
+N low rank blocks 720
+dof_dimension: 2
+Creation of hmat done in 1.5112
+Compression ratio - 0.0403675
+Hmat object - built 
+Hierarchical matrix construction complete.
+Compression Ratio = 0.0403675, eps_aca = 1e-06, eta = 2
+Hierarchical matrix  construction time = :  1.51123
+BigWham constructed Hmat of size (10000 x 2) X (10000 x 2)
+--------------------
+NUM OF AVAILABLE OMP THREADS: 16
+BigWham using 8 OpenMP threads
+ Now setting things for kernel ... 2DS0-H with properties size 2
+--------------------
+Hierarchical representation creation ...
+Cluster tree creation time for the source mesh :  0
+Cluster tree creation time for the source mesh :  0
+Time for binary cluster tree construction  1e-06
+ binary cluster tree depth =0
+ Number of blocks =1
+ Number of full blocks =1
+ Number of low rank blocks =0
+Pattern Created 
+Hierarchical representation complete.
+--------------------
+Populating Hierarchical matrix ...
+ Loop on full blocks construction  
+ N full blocks 1 
+Loop on low rank blocks construction
+N low rank blocks 0
+dof_dimension: 2
+Creation of hmat done in 0.000925
+Compression ratio - 1
+Hmat object - built 
+Hierarchical matrix construction complete.
+Compression Ratio = 1, eps_aca = 1e-06, eta = 2
+Hierarchical matrix  construction time = :  0.000932
+BigWham constructed Hmat of size (20 x 2) X (20 x 2)
+--------------------
+NUM OF AVAILABLE OMP THREADS: 16
+RMSE - SO elements: 0.20084549591098488 , Relative error (L2) - S0 elements:  0.03791031533037428
+RMSE - S1 elements: 0.011914239558987412 , Relative error (L2) - S1 elements:  0.006682617573830125
+</pre></div>
+</div>
+<img alt="../../_images/72207d9f8d7c0c3c843eb7f275c6bd4285274219879648e28e92fb3d3c10b94a.png" src="../../_images/72207d9f8d7c0c3c843eb7f275c6bd4285274219879648e28e92fb3d3c10b94a.png" />
+</div>
+</div>
+<p>We now turn to explore the convergence rate for piece-wise linear S1 elements. Keep in mind that here the number of dof is twice the number of elements ! we therefore perform simulations with a discretization half of the ones previusly used for S0 elements.</p>
+<div class="cell tag_{_____&quot;tags&quot;:_[_________&quot;scroll-output&quot;,_____]_} docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">list_nelts_P1_aux</span><span class="o">=</span><span class="p">(</span><span class="n">list_nelts_P0</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">list_nelts_P1</span><span class="o">=</span><span class="n">list_nelts_P1_aux</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="c1">#np.array([10,20,50,100,200,500,1000,2000,5000,10000])</span>
+<span class="n">rmse_P1</span> <span class="o">=</span><span class="p">[]</span>
+<span class="n">l2_rel_P1</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">list_nelts_P1</span><span class="p">:</span>
+    <span class="n">col_pts</span><span class="p">,</span><span class="n">dd_sol</span><span class="p">,</span><span class="n">wtr</span><span class="p">,</span><span class="n">rmse_n</span><span class="p">,</span><span class="n">lerel_n</span><span class="p">,</span><span class="n">leresl_wo_n</span> <span class="o">=</span> <span class="n">solveGriffith</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;2DS1-H&quot;</span><span class="p">)</span>
+    <span class="n">rmse_P1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rmse_n</span><span class="p">)</span>
+    <span class="n">l2_rel_P1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lerel_n</span><span class="p">)</span>
+    
+<span class="c1"># computing the rate of convergence</span>
+<span class="n">beta_rmse_P1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">rmse_P1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="n">rmse_P1</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">list_nelts_P1</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">list_nelts_P1</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">list_nelts_P1</span><span class="o">.</span><span class="n">size</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span>
+<span class="n">beta_l2_P1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">l2_rel_P1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="n">l2_rel_P1</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">list_nelts_P1</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">list_nelts_P1</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">list_nelts_P1</span><span class="o">.</span><span class="n">size</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>BigWham using 8 OpenMP threads
+ Now setting things for kernel ... 2DS1-H with properties size 2
+--------------------
+Hierarchical representation creation ...
+Cluster tree creation time for the source mesh :  0
+Cluster tree creation time for the source mesh :  0
+Time for binary cluster tree construction  0
+ binary cluster tree depth =0
+ Number of blocks =1
+ Number of full blocks =1
+ Number of low rank blocks =0
+Pattern Created 
+Hierarchical representation complete.
+--------------------
+Populating Hierarchical matrix ...
+ Loop on full blocks construction  
+ N full blocks 1 
+Loop on low rank blocks construction
+N low rank blocks 0
+dof_dimension: 2
+Creation of hmat done in 0.000851
+Compression ratio - 1
+Hmat object - built 
+Hierarchical matrix construction complete.
+Compression Ratio = 1, eps_aca = 1e-06, eta = 2
+Hierarchical matrix  construction time = :  0.000856
+BigWham constructed Hmat of size (20 x 2) X (20 x 2)
+--------------------
+NUM OF AVAILABLE OMP THREADS: 16
+BigWham using 8 OpenMP threads
+ Now setting things for kernel ... 2DS1-H with properties size 2
+--------------------
+Hierarchical representation creation ...
+Cluster tree creation time for the source mesh :  0
+Cluster tree creation time for the source mesh :  0
+Time for binary cluster tree construction  0
+ binary cluster tree depth =0
+ Number of blocks =1
+ Number of full blocks =1
+ Number of low rank blocks =0
+Pattern Created 
+Hierarchical representation complete.
+--------------------
+Populating Hierarchical matrix ...
+ Loop on full blocks construction  
+ N full blocks 1 
+Loop on low rank blocks construction
+N low rank blocks 0
+dof_dimension: 2
+Creation of hmat done in 0.000412
+Compression ratio - 1
+Hmat object - built 
+Hierarchical matrix construction complete.
+Compression Ratio = 1, eps_aca = 1e-06, eta = 2
+Hierarchical matrix  construction time = :  0.00042
+BigWham constructed Hmat of size (10 x 2) X (10 x 2)
+--------------------
+NUM OF AVAILABLE OMP THREADS: 16
+BigWham using 8 OpenMP threads
+ Now setting things for kernel ... 2DS1-H with properties size 2
+--------------------
+Hierarchical representation creation ...
+Cluster tree creation time for the source mesh :  0
+Cluster tree creation time for the source mesh :  0
+Time for binary cluster tree construction  0
+ binary cluster tree depth =0
+ Number of blocks =1
+ Number of full blocks =1
+ Number of low rank blocks =0
+Pattern Created 
+Hierarchical representation complete.
+--------------------
+Populating Hierarchical matrix ...
+ Loop on full blocks construction  
+ N full blocks 1 
+Loop on low rank blocks construction
+N low rank blocks 0
+dof_dimension: 2
+Creation of hmat done in 0.000785
+Compression ratio - 1
+Hmat object - built 
+Hierarchical matrix construction complete.
+Compression Ratio = 1, eps_aca = 1e-06, eta = 2
+Hierarchical matrix  construction time = :  0.00079
+BigWham constructed Hmat of size (20 x 2) X (20 x 2)
+--------------------
+NUM OF AVAILABLE OMP THREADS: 16
+BigWham using 8 OpenMP threads
+ Now setting things for kernel ... 2DS1-H with properties size 2
+--------------------
+Hierarchical representation creation ...
+Cluster tree creation time for the source mesh :  0
+Cluster tree creation time for the source mesh :  0
+Time for binary cluster tree construction  1e-06
+ binary cluster tree depth =0
+ Number of blocks =1
+ Number of full blocks =1
+ Number of low rank blocks =0
+Pattern Created 
+Hierarchical representation complete.
+--------------------
+Populating Hierarchical matrix ...
+ Loop on full blocks construction  
+ N full blocks 1 
+Loop on low rank blocks construction
+N low rank blocks 0
+dof_dimension: 2
+Creation of hmat done in 0.004246
+Compression ratio - 1
+Hmat object - built 
+Hierarchical matrix construction complete.
+Compression Ratio = 1, eps_aca = 1e-06, eta = 2
+Hierarchical matrix  construction time = :  0.004253
+BigWham constructed Hmat of size (50 x 2) X (50 x 2)
+--------------------
+NUM OF AVAILABLE OMP THREADS: 16
+BigWham using 8 OpenMP threads
+ Now setting things for kernel ... 2DS1-H with properties size 2
+--------------------
+Hierarchical representation creation ...
+Cluster tree creation time for the source mesh :  0
+Cluster tree creation time for the source mesh :  0
+Time for binary cluster tree construction  1e-06
+ binary cluster tree depth =0
+ Number of blocks =1
+ Number of full blocks =1
+ Number of low rank blocks =0
+Pattern Created 
+Hierarchical representation complete.
+--------------------
+Populating Hierarchical matrix ...
+ Loop on full blocks construction  
+ N full blocks 1 
+Loop on low rank blocks construction
+N low rank blocks 0
+dof_dimension: 2
+Creation of hmat done in 0.015545
+Compression ratio - 1
+Hmat object - built 
+Hierarchical matrix construction complete.
+Compression Ratio = 1, eps_aca = 1e-06, eta = 2
+Hierarchical matrix  construction time = :  0.015555
+BigWham constructed Hmat of size (100 x 2) X (100 x 2)
+--------------------
+NUM OF AVAILABLE OMP THREADS: 16
+BigWham using 8 OpenMP threads
+ Now setting things for kernel ... 2DS1-H with properties size 2
+--------------------
+Hierarchical representation creation ...
+Cluster tree creation time for the source mesh :  0
+Cluster tree creation time for the source mesh :  0
+Time for binary cluster tree construction  8e-06
+ binary cluster tree depth =1
+ Number of blocks =4
+ Number of full blocks =4
+ Number of low rank blocks =0
+Pattern Created 
+Hierarchical representation complete.
+--------------------
+Populating Hierarchical matrix ...
+ Loop on full blocks construction  
+ N full blocks 4 
+Loop on low rank blocks construction
+N low rank blocks 0
+dof_dimension: 2
+Creation of hmat done in 0.016987
+Compression ratio - 1
+Hmat object - built 
+Hierarchical matrix construction complete.
+Compression Ratio = 1, eps_aca = 1e-06, eta = 2
+Hierarchical matrix  construction time = :  0.016996
+BigWham constructed Hmat of size (200 x 2) X (200 x 2)
+--------------------
+NUM OF AVAILABLE OMP THREADS: 16
+BigWham using 8 OpenMP threads
+ Now setting things for kernel ... 2DS1-H with properties size 2
+--------------------
+Hierarchical representation creation ...
+Cluster tree creation time for the source mesh :  0
+Cluster tree creation time for the source mesh :  0
+Time for binary cluster tree construction  6.9e-05
+ binary cluster tree depth =3
+ Number of blocks =46
+ Number of full blocks =22
+ Number of low rank blocks =24
+Pattern Created 
+Hierarchical representation complete.
+--------------------
+Populating Hierarchical matrix ...
+ Loop on full blocks construction  
+ N full blocks 22 
+Loop on low rank blocks construction
+N low rank blocks 24
+dof_dimension: 2
+Creation of hmat done in 0.037721
+Compression ratio - 0.428744
+Hmat object - built 
+Hierarchical matrix construction complete.
+Compression Ratio = 0.428744, eps_aca = 1e-06, eta = 2
+Hierarchical matrix  construction time = :  0.037732
+BigWham constructed Hmat of size (500 x 2) X (500 x 2)
+--------------------
+NUM OF AVAILABLE OMP THRE
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ADS: 16
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>BigWham using 8 OpenMP threads
+ Now setting things for kernel ... 2DS1-H with properties size 2
+--------------------
+Hierarchical representation creation ...
+Cluster tree creation time for the source mesh :  0
+Cluster tree creation time for the source mesh :  0
+Time for binary cluster tree construction  0.000202
+ binary cluster tree depth =4
+ Number of blocks =112
+ Number of full blocks =46
+ Number of low rank blocks =66
+Pattern Created 
+Hierarchical representation complete.
+--------------------
+Populating Hierarchical matrix ...
+ Loop on full blocks construction  
+ N full blocks 46 
+Loop on low rank blocks construction
+N low rank blocks 66
+dof_dimension: 2
+Creation of hmat done in 0.095314
+Compression ratio - 0.251934
+Hmat object - built 
+Hierarchical matrix construction complete.
+Compression Ratio = 0.251934, eps_aca = 1e-06, eta = 2
+Hierarchical matrix  construction time = :  0.095325
+BigWham constructed Hmat of size (1000 x 2) X (1000 x 2)
+--------------------
+NUM OF AVAILABLE OMP THREADS: 16
+BigWham using 8 OpenMP threads
+ Now setting things for kernel ... 2DS1-H with properties size 2
+--------------------
+Hierarchical representation creation ...
+Cluster tree creation time for the source mesh :  0
+Cluster tree creation time for the source mesh :  0
+Time for binary cluster tree construction  0.000607
+ binary cluster tree depth =5
+ Number of blocks =250
+ Number of full blocks =94
+ Number of low rank blocks =156
+Pattern Created 
+Hierarchical representation complete.
+--------------------
+Populating Hierarchical matrix ...
+ Loop on full blocks construction  
+ N full blocks 94 
+Loop on low rank blocks construction
+N low rank blocks 156
+dof_dimension: 2
+Creation of hmat done in 0.250404
+Compression ratio - 0.143889
+Hmat object - built 
+Hierarchical matrix construction complete.
+Compression Ratio = 0.143889, eps_aca = 1e-06, eta = 2
+Hierarchical matrix  construction time = :  0.25042
+BigWham constructed Hmat of size (2000 x 2) X (2000 x 2)
+--------------------
+NUM OF AVAILABLE OMP
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> THREADS: 16
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>BigWham using 8 OpenMP threads
+ Now setting things for kernel ... 2DS1-H with properties size 2
+--------------------
+Hierarchical representation creation ...
+Cluster tree creation time for the source mesh :  0
+Cluster tree creation time for the source mesh :  0
+Time for binary cluster tree construction  0.001873
+ binary cluster tree depth =6
+ Number of blocks =532
+ Number of full blocks =190
+ Number of low rank blocks =342
+Pattern Created 
+Hierarchical representation complete.
+--------------------
+Populating Hierarchical matrix ...
+ Loop on full blocks construction  
+ N full blocks 190 
+Loop on low rank blocks construction
+N low rank blocks 342
+dof_dimension: 2
+Creation of hmat done in 0.669919
+Compression ratio - 0.0738011
+Hmat object - built 
+Hierarchical matrix construction complete.
+Compression Ratio = 0.0738011, eps_aca = 1e-06, eta = 2
+Hierarchical matrix  construction time = :  0.669937
+BigWham constructed Hmat of size (5000 x 2) X (5000 x 2)
+--------------------
+NUM OF AVAILABLE OMP THREADS: 16
+</pre></div>
+</div>
+</div>
+</div>
+<p>The convergence on the RMSE is smaller than for S0 -  exhibiting an  drop early on (so we exclude the first few points for the estimate of the convergence rate). Note however, than the values are lower than the S0 for the same number of dofs.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">list_nelts_P1</span><span class="p">,</span><span class="n">rmse_P1</span><span class="p">,</span> <span class="s2">&quot;-*g&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">list_nelts_P1</span><span class="p">,</span> <span class="mf">0.2</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">list_nelts_P1</span><span class="p">)</span><span class="o">**</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">beta_rmse_P1</span><span class="p">[</span><span class="mi">5</span><span class="p">::]),</span> <span class="s2">&quot;-&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;S1 elements - RMSE vs Ndofs&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;N dofs&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;RMSE&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;Bigwham&#39;</span><span class="p">,</span><span class="s1">&#39;estimate rate &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">beta_rmse_P1</span><span class="p">[</span><span class="mi">5</span><span class="p">::])</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">))]);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/0bca2e9af38de5eb9a8f38e27a48c3326bb567775db32b54ca37b319d4b6c964.png" src="../../_images/0bca2e9af38de5eb9a8f38e27a48c3326bb567775db32b54ca37b319d4b6c964.png" />
+</div>
+</div>
+<p>The convergence of the L2 norm is “cleaner” and exhibit the same rate than for P0 element. However, again, the error is consistently smaller for the same number of dofs.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">list_nelts_P0</span><span class="p">,</span> <span class="n">l2_rel_P1</span><span class="p">,</span> <span class="s2">&quot;-*g&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">list_nelts_P0</span><span class="p">,</span> <span class="mf">.15</span><span class="o">/</span><span class="n">list_nelts_P0</span><span class="o">**</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">beta_l2_P1</span><span class="p">),</span> <span class="s2">&quot;-&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;S1 element - L2 norm relative error vs Ndofs&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;N dofs&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;L2 norm of relative error&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;Bigwham&#39;</span><span class="p">,</span><span class="s1">&#39;estimate rate &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">beta_l2_P1</span><span class="p">[::])</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">))]);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/1a261c167a43fc1ce8a6b35d7344e1f751fe356ff4b275f52d33faa0090632ef.png" src="../../_images/1a261c167a43fc1ce8a6b35d7344e1f751fe356ff4b275f52d33faa0090632ef.png" />
+</div>
+</div>
+<p>We now compare on the same plot the convergence of the P0 and P1 elements… of course as function of the number of degree of freedoms (number of unknowns).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">list_nelts_P0</span><span class="p">,</span><span class="n">rmse_P0</span><span class="p">,</span> <span class="s2">&quot;.-b&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">list_nelts_P0</span><span class="p">,</span><span class="n">rmse_P1</span><span class="p">,</span> <span class="s2">&quot;*-g&quot;</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;S0 vs S1 elements - RMSE vs Ndofs&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;N dofs&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;L2 norm of relative error&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;S0 elements&#39;</span><span class="p">,</span><span class="s1">&#39;S1 elements&#39;</span><span class="p">]);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/7f5d7b55e96ad6bc446003d8042d9b312c97cfd43df7a7f7d6c04ad085806544.png" src="../../_images/7f5d7b55e96ad6bc446003d8042d9b312c97cfd43df7a7f7d6c04ad085806544.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">list_nelts_P0</span><span class="p">,</span> <span class="n">l2_rel_P0</span><span class="p">,</span> <span class="s2">&quot;.-b&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">list_nelts_P0</span><span class="p">,</span> <span class="n">l2_rel_P1</span><span class="p">,</span> <span class="s2">&quot;-*g&quot;</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="c1">#plt.loglog(list_nelts_P0, 1/list_nelts_P0**np.median(beta_l2_P1), &quot;-&quot;)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;S0 vs S1 elements - L2 norm of relative error vs Ndofs&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;N dofs&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;L2 norm of relative diff&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;S0 elements&#39;</span><span class="p">,</span><span class="s1">&#39;S1 elements&#39;</span><span class="p">]);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/1b4f2b15de450ec1d8c410c80bd6f3bb40e6743032aed755d517452a0683a87b.png" src="../../_images/1b4f2b15de450ec1d8c410c80bd6f3bb40e6743032aed755d517452a0683a87b.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./examples/2d"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="displacements_stresses_griffith_crack_2DS0.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Elastic fields around a Griffith crack</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="finite_dislocation_2d.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Elastic fields around a finite dislocation segment</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#piece-wise-constant-interpolation-element-2ds0">Piece-wise constant interpolation element (2DS0)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#piece-wise-linear-element-2ds1">Piece-wise linear element (2DS1)</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Brice Lecampion
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <p>
+© Copyright 2025.
+</p>   
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

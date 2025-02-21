@@ -1,0 +1,867 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>First Steps with BigWham &#8212; BigWham Tutorials</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'examples/2d/bigwham_first_steps_griffith';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Hierarchical matrix scaling" href="bigwham_hmat_computational_scaling_griffith.html" />
+    <link rel="prev" title="Welcome" href="../../frontmatter.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../frontmatter.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">BigWham Tutorials</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../frontmatter.html">
+                    Welcome
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Starting with BigWham</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">First Steps with BigWham</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bigwham_hmat_computational_scaling_griffith.html">Hierarchical matrix scaling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="displacements_stresses_griffith_crack_2DS0.html">Elastic fields around a Griffith crack</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">2D Examples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="griffith_crack_problem_convergence_S0_vs_S1.html">Piece-wise constant versus piece-wise linear discretization - accuracy for uniform meshes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="finite_dislocation_2d.html">Elastic fields around a finite dislocation segment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="arc_crack_isotropic_tension.html">Arc crack under remote uniform isotropic tension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Dugdale_crack_2DS0.html">2d Bilby-Cottrell-Swinden-Dugdale Cohesive Crack example</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="griffith_crack_non_uniform_mesh_S0_vs_S1.html">Uniform vs non-uniform mesh size for a simple straigth crack : S0 vs S1 elements</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">3D Examples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../3d/penny_shaped_crack_tensile_T0.html">Penny-shaped (radial) crack under uniform tension - displacement discontinuity solution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3d/displacements_stresses_penny_shaped_crack_tensile.html">Elastic field around a penny-shaped (radial) crack under uniform tension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3d/penny_shaped_crack_tensile_R0.html">Penny-shaped crack under uniform tension - solution on a cartesian mesh made of square elements</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../3d/blade_crack_tensile_T0.html">Blade (rectangular) crack under uniform tension - displacement discontinuity solution</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/examples/2d/bigwham_first_steps_griffith.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>First Steps with BigWham</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-the-2d-griffith-crack-problem">Solving the 2D Griffith crack problem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discretization">Discretization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#increasing-the-number-of-elements-in-the-mesh">Increasing the number of elements in the mesh</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="first-steps-with-bigwham">
+<h1>First Steps with BigWham<a class="headerlink" href="#first-steps-with-bigwham" title="Link to this heading">#</a></h1>
+<section id="solving-the-2d-griffith-crack-problem">
+<h2>Solving the 2D Griffith crack problem<a class="headerlink" href="#solving-the-2d-griffith-crack-problem" title="Link to this heading">#</a></h2>
+<p>Plane Elasticity problem</p>
+<p>In this notebook, we focus on the elasto-static problem of a straight fracture in an infinite isotropic medium under uniform remote tension.</p>
+<p>We explore the different steps of the use of BigWham for the solution of crack problems in elasto-static in infinite media.</p>
+<p>We first import the Bigwham python interface, as well as a different libraries
+(notably the scipy gmres for the solution of linear system via an iterative gmres algorithm).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># imports etc.</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span> <span class="c1"># for plotting</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.sparse.linalg</span> <span class="kn">import</span> <span class="n">gmres</span>
+
+<span class="kn">from</span> <span class="nn">bigwham4py</span> <span class="kn">import</span> <span class="n">BEMatrix</span>
+
+<span class="c1"># we import the reference solution for the Griffith crack problem.</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s1">&#39;../..&#39;</span><span class="p">))</span>
+<span class="kn">from</span> <span class="nn">solutions.griffith_crack</span> <span class="kn">import</span> <span class="n">width_griffith</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We are interested in solving the elastic problem of a straigth crack <span class="math notranslate nohighlight">\(x_1 \in [-a,a]\)</span> under remote uniform tension. The crack is aligned along the axis <span class="math notranslate nohighlight">\(\mathbf{e}_1\)</span> with its normal being <span class="math notranslate nohighlight">\(\mathbf{e}_2\)</span>.
+The medium is considered infinite, with at infinity the following applied stress</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+        \sigma_{11}^{\infty} = 0 \\
+        \sigma_{22}^{\infty} =\sigma _{A} \\
+        \sigma_{12}^{\infty} =0  \\
+\end{split}\]</div>
+<p>while the crack is traction free, e.g. for <span class="math notranslate nohighlight">\(x_1 \in [-a,a]\)</span> &amp; <span class="math notranslate nohighlight">\(x_2=0\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+ \sigma_{22}(x_1,x_2=0) =t_2=  0 \\
+ \sigma_{12}(x_1,x_2=0) =t_1 = 0 
+ \end{split}\]</div>
+<p>By principle of superposition, the crack displacement discontinuity must balance the tractions due to the far-field stress <span class="math notranslate nohighlight">\(t_i^\infty\)</span> such that ultimate traction on the crack face vanishes.</p>
+<p>The traction elasto-static boundary integral equations for such a problem in an infinite medium is given by:</p>
+<div class="math notranslate nohighlight">
+\[
+        t^-_i(x_1,x_2) = t_i^{-,\infty}(x_1,x_2) - \int_{-a}^{a} H_{ij}(x_1,y_1) d_j(y_1) \text{ d} y_1
+ \]</div>
+<p>where <span class="math notranslate nohighlight">\(H_{ij}\)</span> is the hyper-singular elastostatic kernel (dislocation dipole) and <span class="math notranslate nohighlight">\(d_i\)</span> denotes the displacement discontinuity over the crack taken positive in overlap:</p>
+<div class="math notranslate nohighlight">
+\[
+ d_i = u_i^- - u_i^+
+ \]</div>
+<p>where the superscript <span class="math notranslate nohighlight">\(-\)</span> and <span class="math notranslate nohighlight">\(+\)</span> denotes the bottom and top surface of the crack, and <span class="math notranslate nohighlight">\(t^-_i=\sigma_{ij}^{-} n_j\)</span> denotes the traction vector with respect to the crack normal taken as the outward normal of the bottom surface of the crack <span class="math notranslate nohighlight">\(n_i=n_i^-\)</span>. The crack is assumed to be self-equilibrated such that <span class="math notranslate nohighlight">\(t_i^+ + t_i^- = 0 \)</span>. As a result, the problem can be similarly written using the traction vector acting on the upper surface and the jump displacement defined positive in opening:</p>
+<div class="math notranslate nohighlight">
+\[
+        t^+_i(x_1,x_2) = t_i^{+,\infty}(x_1,x_2) - \int_{-a}^{a} H_{ij}(x_1,y_1) \Delta u_j(y_1) \text{ d} y_1
+ \]</div>
+<p>with  <span class="math notranslate nohighlight">\( \Delta u_i  = u_i^+ - u_i^- = - d_i\)</span>.</p>
+<p>It is up to the user to choose what it is most appropriate for his/her problem,… and to be consistent !</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><em>BigWham returns the collocation BEM matrix <span class="math notranslate nohighlight">\(\mathbb{E}_H\)</span> corresponding to the hyper-singular kernel including the minus sign !</em>
+As a result, the discretized linear problem corresponding to the prevous continuous BIE is:</p>
+<div class="math notranslate nohighlight">
+\[
+        \mathbf{T} =  \mathbf{T}^\infty  + \mathbb{E}_H \cdot \mathbf{d} 
+\]</div>
+</div>
+</section>
+<section id="discretization">
+<h2>Discretization<a class="headerlink" href="#discretization" title="Link to this heading">#</a></h2>
+<p>In this first tutorial, we will solve the problem using piece-wise constant displacement discontinuity element. We first create a simple mesh for this problem - using a constant size for each element.
+For simplicity, we take a crack of length 2, symmetrically with the origin.</p>
+<p>Bigwham requires a 2D line mesh defined via two arrays. The first array contains the coordinates (<span class="math notranslate nohighlight">\(x_1,\,x_2\)</span>) of the vertex of the elements - we thus denote it as “coor” (its entries are typically float). The second array defines the “connectivity” of the mesh - for a 2D line mesh, each row consists of the number of the left and right vertex (where the number corresponds to the row of the coordinates array).</p>
+<p>We use 20 elements for demonstration. There are thus 20+1=21 vertex.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nelts</span><span class="o">=</span><span class="mi">20</span>
+<span class="n">a</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">coor1D</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">nelts</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># the list of x coordinates of the element vertex</span>
+<span class="n">coor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">coor1D</span><span class="p">,</span> <span class="n">coor1D</span> <span class="o">*</span> <span class="mf">0.0</span><span class="p">]))</span> <span class="c1"># the y coordinates is all zero.</span>
+<span class="n">conn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fromfunction</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">:</span> <span class="n">i</span> <span class="o">+</span> <span class="n">j</span><span class="p">,</span> <span class="p">(</span><span class="n">nelts</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int_</span><span class="p">)</span> <span class="c1"># the connectivity of the mesh is very simple </span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">coor</span><span class="p">[</span><span class="n">conn</span><span class="p">[:],</span><span class="mi">0</span><span class="p">],</span><span class="n">coor</span><span class="p">[</span><span class="n">conn</span><span class="p">[:],</span><span class="mi">1</span><span class="p">],</span><span class="s1">&#39;.-b&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;1D mesh of a plane-strain Griffith crack in [-1,1]&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;1D mesh of a plane-strain Griffith crack in [-1,1]&#39;)
+</pre></div>
+</div>
+<img alt="../../_images/a02eacbd4a61b0ded21668c8a5a251487ec592bd899b4f3478d4553553640146.png" src="../../_images/a02eacbd4a61b0ded21668c8a5a251487ec592bd899b4f3478d4553553640146.png" />
+</div>
+</div>
+<p>We set the elastic properties of the medium. Note that bigwham’s input are the Young’s modulus <span class="math notranslate nohighlight">\(E\)</span> and Poisson’s ratio <span class="math notranslate nohighlight">\(\nu\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G</span> <span class="o">=</span> <span class="mf">1.0</span>                <span class="c1"># shear modulus in [Pa]</span>
+<span class="n">nu</span> <span class="o">=</span> <span class="mf">0.25</span>              <span class="c1"># Poisson&#39;s ratio [-]</span>
+<span class="n">E</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">G</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">nu</span><span class="p">)</span> <span class="c1"># Young&#39;s modulus [Pa]</span>
+<span class="n">elas_prop</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">E</span><span class="p">,</span> <span class="n">nu</span><span class="p">])</span> <span class="c1"># an array for the BigWham interface</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>With the mesh coordinates and connectivity in hand, and the elastic properties, we can initialize a hierarchical matrix object.
+Bigwham requires several additional information, notably  a string defining the type of element and elastic kernel to be used. For 2D elasto-static, to use S0 element (piece-wise constant displacement over the element), for the hyper-singular kernel the corresponding string value is “2DS0-H”.</p>
+<p>This 2D S0 element has its collocation point located at the center of the segment.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kernel_elt</span> <span class="o">=</span> <span class="s2">&quot;2DS0-H&quot;</span>  <span class="c1"># 2D elastic P0 element (piece-wise constant displacement discontinuity for fracture)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Bigwham uses a hierarchical matrix approach in order to compress the otherwise densily populated matrix. This is particularly efficient as the size of the mesh increases. For such a “tiny” mesh of 21 elements, there is no need to compress the resulting matrix. Neverheless we discuss here the 3 parameters controlling the compression of hiearchical matrix.</p>
+<p><span class="math notranslate nohighlight">\(\eta\)</span> (eta in the code) controls the geometrical clustering  of groups of points between near-field and far-field interaction. The far-field interaction will be approximated as low-rank matrices. Setting a value of 0 ensures that NO compression will be performed. Otherwise, a value of 2 or 3 is a good starting point for an optimal compression.</p>
+<p>max_leaf_size controls of the minimum size of a near-field / dense block of points. A good practice is to not have this too low, as if eta is large, a large number of “small” dense blocks will be created. A minimum of 32 is good practice. If the size of the mesh increases, it is efficient to increase the max_leaf_size (up to 2<strong>9 or 2</strong>10).</p>
+<p>Finally, <span class="math notranslate nohighlight">\(\epsilon_{ACA}\)</span> (eps_aca in the code) controls the accuracy of the low-rank approximation (by the adaptive cross approximation algorithm). A value of 1e-4 is a good starting value.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">eta</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1">#  here we ensure we do not compress at all (note eta can not be less than 0)</span>
+<span class="n">max_leaf_size</span><span class="o">=</span><span class="mi">64</span> <span class="c1"># the number of &#39;points&#39; in the cluster tree at its finer/deeper level </span>
+<span class="n">eps_aca</span> <span class="o">=</span> <span class="mf">1.e-4</span> <span class="c1"># this parameter controls the accuracy of the compression of the admissible low-rank blocks (if any, here there wull be none as eta=0)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can now instantiate a BigWham object - which here directly construct the collocation BEM hierarchical matrix of the elasto-static problem.</p>
+<div class="cell tag_{_____&quot;tags&quot;:_[_________&quot;scroll-output&quot;,_____]_} docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">h</span> <span class="o">=</span> <span class="n">BEMatrix</span><span class="p">(</span><span class="n">kernel_elt</span><span class="p">,</span> <span class="n">coor</span><span class="p">,</span> <span class="n">conn</span><span class="p">,</span> <span class="n">elas_prop</span><span class="p">,</span> <span class="n">max_leaf_size</span><span class="p">,</span> <span class="n">eta</span><span class="p">,</span> <span class="n">eps_aca</span><span class="p">,</span><span class="n">n_openMP_threads</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>NUM OF AVAILABLE OMP THREADS: 16
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can get the coordinates of the collocation points. And replot the mesh and the collocation points location, which are indeed at the middle of each elements.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">col_pts</span><span class="o">=</span><span class="n">h</span><span class="o">.</span><span class="n">getCollocationPoints</span><span class="p">()</span>
+<span class="n">col_pts</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">coor</span><span class="p">[</span><span class="n">conn</span><span class="p">[:],</span><span class="mi">0</span><span class="p">],</span><span class="n">coor</span><span class="p">[</span><span class="n">conn</span><span class="p">[:],</span><span class="mi">1</span><span class="p">],</span><span class="s1">&#39;.-b&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">col_pts</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="n">col_pts</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span><span class="s1">&#39;*r&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;1D mesh of a plane-strain Griffith crack in [-1,1]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;nodes&#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;collocation points&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7fb7e89bb790&gt;
+</pre></div>
+</div>
+<img alt="../../_images/e1481f5f470d9d1f579aebfe41f22fe6d24ca3417609a04884842c5262f2440d.png" src="../../_images/e1481f5f470d9d1f579aebfe41f22fe6d24ca3417609a04884842c5262f2440d.png" />
+</div>
+</div>
+<p>We can also check the spatial dimension of the problem via the method getSpatialDimension()</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">h</span><span class="o">.</span><span class="n">getSpatialDimension</span><span class="p">()</span><span class="o">==</span><span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<p>and that here, because of the choice of <span class="math notranslate nohighlight">\(\eta=0\)</span>, no compression has been performed. The degree of compression is given as the ratio with respect to the otherwise dense matrix representation. It is therefore here equal to 1.0 - all the element of the matrix are stored/there is no compression. (a value of 1  indicates that we store the fully populated matrix.)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">h</span><span class="o">.</span><span class="n">getCompression</span><span class="p">()</span><span class="o">==</span><span class="mf">1.0</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s now solve the Griffith problem. We need to set the loading vector. The crack is free of traction, but we must cancel the effect of the far-field stress which is tensile. The discretized BIE can therefore be schematically written as:</p>
+<div class="math notranslate nohighlight">
+\[ -\mathbf{T}^{+,\infty} =  \mathbb{E}_H \cdot (\mathbf{u}^+ - \mathbf{u}^-) \]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbb{E}_h \)</span> is the resulting discretized boundary element matrix associated with the hypersingular kernel (for straight segments).Recall that <span class="math notranslate nohighlight">\( \mathbb{E}_h \)</span> contains the minus sign appearing in front of the integral of the hypersingular BIE.</p>
+<p><span class="math notranslate nohighlight">\(\mathbf{T}^{\infty} = [T^\infty_1(\mathbf{x}^1),T^\infty_2(\mathbf{x}^1),...,T^\infty_1(\mathbf{x}^i),T^\infty_2(\mathbf{x}^i) ,....T^\infty_1(\mathbf{x}^N),T^\infty_2(\mathbf{x}^N)] \)</span>
+is a vector containing the two tractions component at each collocation points. The unknown vector of displacement discontinuity is organized similarly.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tinf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">h</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="c1">#  </span>
+<span class="n">tinf</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>By default, BigWham uses a collocation method and piece-wise discontinuous element. It therefore expresses the discretized BIE in the local (orthonormal) system of each element: <span class="math notranslate nohighlight">\(\mathbf{s}_1(,\mathbf{s}_2),\mathbf{n}\)</span> where <span class="math notranslate nohighlight">\(\mathbf{n} \)</span> defines the element normal and <span class="math notranslate nohighlight">\(\mathbf{s}_1\)</span> the tangent (in 2D, <span class="math notranslate nohighlight">\(\mathbf{s}_1,\mathbf{s}_2\)</span> in 3D). Here the local system of coordinate is the same for all elements and corresponds to the global system of coordinates of the mesh - such that the tensile direction coincides here directly to the second coordinate in the stach vectors.</p>
+</div>
+<p>We are now ready to solve the linear system. We do so using an iterative method, with a pre-conditioner. A very good preconditioner can be constructed by taking an incomplete LU decomposition of the full blocks of the hierarchical matrix.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">jac_ilu</span><span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">H_ILU_prec</span><span class="p">()</span> <span class="c1"># we use a ILU decomposition of the full block for efficient solution via gmres</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">gmres</span><span class="p">(</span><span class="n">h</span><span class="p">,</span><span class="n">tinf</span><span class="p">,</span><span class="n">M</span><span class="o">=</span><span class="n">jac_ilu</span><span class="p">,</span><span class="n">rtol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">dd</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">w_true</span><span class="o">=</span><span class="n">width_griffith</span><span class="p">(</span><span class="n">col_pts</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">sig</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">G</span><span class="o">=</span><span class="n">G</span><span class="p">,</span><span class="n">nu</span><span class="o">=</span><span class="n">nu</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">col_pts</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">dd</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;-*&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">col_pts</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">w_true</span><span class="p">,</span> <span class="s2">&quot;-+r&quot;</span><span class="p">)</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;width(x)&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;width(x)&#39;)
+</pre></div>
+</div>
+<img alt="../../_images/9ab5e5f3a08f7811feaa5679191545bb2218eb262d33c6b5fcf75336ea596211.png" src="../../_images/9ab5e5f3a08f7811feaa5679191545bb2218eb262d33c6b5fcf75336ea596211.png" />
+</div>
+</div>
+</section>
+<section id="increasing-the-number-of-elements-in-the-mesh">
+<h2>Increasing the number of elements in the mesh<a class="headerlink" href="#increasing-the-number-of-elements-in-the-mesh" title="Link to this heading">#</a></h2>
+<p>In order to obtain a more accurate solution (and to start playing with the hierarchical matrix compression), we increase significantly the number of elements. From 20 elements, we now move to discretizing the crack with 1000 elements. To keep the computational cost tractable, we now use a value of 2 for <span class="math notranslate nohighlight">\(\eta\)</span> (which controls the acceptability condition for low-rank approximation of “far-field” blocks).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nelts</span><span class="o">=</span><span class="mi">1000</span>
+<span class="n">a</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">coor1D</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">nelts</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># the list of x coordinates of the element vertex</span>
+<span class="n">coor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">coor1D</span><span class="p">,</span> <span class="n">coor1D</span> <span class="o">*</span> <span class="mf">0.0</span><span class="p">]))</span> <span class="c1"># the y coordinates is all zero.</span>
+<span class="n">conn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fromfunction</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">:</span> <span class="n">i</span> <span class="o">+</span> <span class="n">j</span><span class="p">,</span> <span class="p">(</span><span class="n">nelts</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int_</span><span class="p">)</span> <span class="c1"># the connectivity of the mesh is very simple </span>
+
+<span class="n">eta</span> <span class="o">=</span><span class="mi">2</span> <span class="c1"># we will now compress the influence of &quot;blocks&quot; satisfying the admissibility condition with eta =2</span>
+<span class="n">h</span> <span class="o">=</span> <span class="n">BEMatrix</span><span class="p">(</span><span class="n">kernel_elt</span><span class="p">,</span> <span class="n">coor</span><span class="p">,</span> <span class="n">conn</span><span class="p">,</span> <span class="n">elas_prop</span><span class="p">,</span> <span class="n">max_leaf_size</span><span class="p">,</span> <span class="n">eta</span><span class="p">,</span> <span class="n">eps_aca</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>BigWham using 8 OpenMP threads
+ Now setting things for kernel ... 2DS0-H with properties size 2
+--------------------
+Hierarchical representation creation ...
+Cluster tree creation time for the source mesh :  0
+Cluster tree creation time for the source mesh :  0
+Time for binary cluster tree construction  4e-06
+ binary cluster tree depth =0
+ Number of blocks =1
+ Number of full blocks =1
+ Number of low rank blocks =0
+Pattern Created 
+Hierarchical representation complete.
+--------------------
+Populating Hierarchical matrix ...
+ Loop on full blocks construction  
+ N full blocks 1 
+Loop on low rank blocks construction
+N low rank blocks 0
+dof_dimension: 2
+Creation of hmat done in 0.003715
+Compression ratio - 1
+Hmat object - built 
+Hierarchical matrix construction complete.
+Compression Ratio = 1, eps_aca = 0.0001, eta = 0
+Hierarchical matrix  construction time = :  0.004075
+BigWham constructed Hmat of size (20 x 2) X (20 x 2)
+--------------------
+NUM OF AVAILABLE OMP THREADS: 16
+</pre></div>
+</div>
+</div>
+</div>
+<p>The hierarchical matrix has now large low-rank blocks. Of course, the diagonal dominant blocks corresponds to near-field effects &amp; are thus not compressed: these blocks are full. We can visualize the pattern of the hierarchical matrix using the plotPattern() method.
+The compression ratio is now 0.23, which means that the hierachical representation store only 23% of the otherwise dense matrix.</p>
+<p>– Note: internally, BigWham performs a re-ordering of the degree of freedoms when creating the hierarchical tree via geometrical clustering. This is “hidden” from the python users, all the input &amp; outputs are set in the original ordering corresponding to the mesh used in Python.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">h</span><span class="o">.</span><span class="n">plotPattern</span><span class="p">()</span>
+<span class="n">h</span><span class="o">.</span><span class="n">getCompression</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/bricelecampion/ClionProjects/BigWham_dev/build/interfaces/python/bigwham4py.py:234: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  fig.show()
+</pre></div>
+</div>
+<img alt="../../_images/0270f142a37c1406ad06410c545ce3cca6d339f4206ec460b4a9af47e92cfd66.png" src="../../_images/0270f142a37c1406ad06410c545ce3cca6d339f4206ec460b4a9af47e92cfd66.png" />
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.239184
+</pre></div>
+</div>
+</div>
+</div>
+<p>a compression of ~0.24 indicates that the hiearchical matrix occupy only 24% of the fully-populated matrix. We see that even for a relatively small problem like this one, the gain is very significant.</p>
+<p>We can now similarly solve the problem. We use again an iterative solver - which is now mandatory as the hierarchical matrix object in BigWhan has only a method to perform matrix-vector product. For optimal convergence, we use an Incomplete LU decomposition of the full blocks (diagonal dominant - see above) of the matrix.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tinf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">h</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="c1">#  </span>
+<span class="n">tinf</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.</span>
+
+<span class="n">jac_ilu</span><span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">H_ILU_prec</span><span class="p">()</span> <span class="c1"># we use a ILU decomposition of the full block for efficient solution via gmres</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">gmres</span><span class="p">(</span><span class="n">h</span><span class="p">,</span><span class="n">tinf</span><span class="p">,</span><span class="n">M</span><span class="o">=</span><span class="n">jac_ilu</span><span class="p">,</span><span class="n">rtol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># solution of the system of eqns via a pre-conditionned GMRES </span>
+<span class="n">dd</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s compute the true solution on this finer mesh, and plot the numerical results and the true solution … the two are nearly undistinguihsable.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">col_pts</span><span class="o">=</span><span class="n">h</span><span class="o">.</span><span class="n">getCollocationPoints</span><span class="p">()</span>
+<span class="n">w_true</span><span class="o">=</span><span class="n">width_griffith</span><span class="p">(</span><span class="n">col_pts</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">sig</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">G</span><span class="o">=</span><span class="n">G</span><span class="p">,</span><span class="n">nu</span><span class="o">=</span><span class="n">nu</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">col_pts</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">dd</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;-*&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">col_pts</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">w_true</span><span class="p">,</span> <span class="s2">&quot;-r&quot;</span><span class="p">)</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Width&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39; Griffith crack Nelts=1000&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;numeric&#39;</span><span class="p">,</span><span class="s1">&#39;True&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7fb798bae920&gt;
+</pre></div>
+</div>
+<img alt="../../_images/7e2271ff3c916a104e57af267f5c3e34a74104f4091940dec0355ead1b3864c1.png" src="../../_images/7e2271ff3c916a104e57af267f5c3e34a74104f4091940dec0355ead1b3864c1.png" />
+</div>
+</div>
+<p>We can better  visualize the difference between the true and numerical solution by plotting the difference - scaled by the true width at the crack center.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">w_0</span><span class="o">=</span><span class="n">width_griffith</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.</span><span class="p">]),</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">sig</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">G</span><span class="o">=</span><span class="n">G</span><span class="p">,</span><span class="n">nu</span><span class="o">=</span><span class="n">nu</span><span class="p">)</span>
+<span class="n">col_pts</span><span class="o">=</span><span class="n">h</span><span class="o">.</span><span class="n">getCollocationPoints</span><span class="p">()</span>
+<span class="n">w_true</span><span class="o">=</span><span class="n">width_griffith</span><span class="p">(</span><span class="n">col_pts</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">sig</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">G</span><span class="o">=</span><span class="n">G</span><span class="p">,</span><span class="n">nu</span><span class="o">=</span><span class="n">nu</span><span class="p">)</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">col_pts</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="p">(</span><span class="n">dd</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span> <span class="n">w_true</span><span class="p">)</span><span class="o">/</span><span class="n">w_0</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;+r&quot;</span><span class="p">)</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$[w_</span><span class="si">{num}</span><span class="s1">(x_i)-w_</span><span class="si">{true}</span><span class="s1">(x_i)]/w_</span><span class="si">{true}</span><span class="s1">(0)$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Scaled error on the crack width&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Scaled error on the crack width&#39;)
+</pre></div>
+</div>
+<img alt="../../_images/f8136cfa0c8f7504d2accf8e66df37484c7861939f6a969dbefe42d481eaf759.png" src="../../_images/f8136cfa0c8f7504d2accf8e66df37484c7861939f6a969dbefe42d481eaf759.png" />
+</div>
+</div>
+<p>Of course, the numerical accuracy is poorer closer to the crack tip due to the linear elastic fracture mechancis <span class="math notranslate nohighlight">\(\sqrt{s}\)</span> asymptote near the tip. Specially designed square-root element would be necessary to further drive the error down. A simple correction proposed by <span id="id1">[<a class="reference internal" href="finite_dislocation_2d.html#id3" title="J.A. Ryder and J. A. L. Napier. Error analysis and design of a large-scale tabular mining stress analyzer. In 5$^th$ International Conference on Numerical Methods in Geomechanics, 1549–1555. 1985.">Ryder and Napier, 1985</a>]</span> is also very efficient.</p>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
+<div class="docutils container" id="id2">
+<div role="list" class="citation-list">
+<div class="citation" id="id5" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>CS83<span class="fn-bracket">]</span></span>
+<p>S. L. Crouch and A. M. Starfield. <em>Boundary element methods in solid mechanics</em>. George Allen &amp; Unwin, 1983.</p>
+</div>
+<div class="citation" id="id4" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Piv82<span class="fn-bracket">]</span></span>
+<p>A. Piva. A crack along a circular interface between dissimilar media. <em>Meccanica</em>, 17(2):85–90, june 1982.</p>
+</div>
+<div class="citation" id="id3" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">RN85</a><span class="fn-bracket">]</span></span>
+<p>J.A. Ryder and J. A. L. Napier. Error analysis and design of a large-scale tabular mining stress analyzer. In <em>5$^th$ International Conference on Numerical Methods in Geomechanics</em>, 1549–1555. 1985.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./examples/2d"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../../frontmatter.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Welcome</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="bigwham_hmat_computational_scaling_griffith.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Hierarchical matrix scaling</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-the-2d-griffith-crack-problem">Solving the 2D Griffith crack problem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discretization">Discretization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#increasing-the-number-of-elements-in-the-mesh">Increasing the number of elements in the mesh</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Brice Lecampion
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <p>
+© Copyright 2025.
+</p>   
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

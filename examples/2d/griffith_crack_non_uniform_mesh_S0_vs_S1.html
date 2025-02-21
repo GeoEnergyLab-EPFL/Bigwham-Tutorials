@@ -1,0 +1,964 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Uniform vs non-uniform mesh size for a simple straigth crack : S0 vs S1 elements &#8212; BigWham Tutorials</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'examples/2d/griffith_crack_non_uniform_mesh_S0_vs_S1';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Penny-shaped (radial) crack under uniform tension - displacement discontinuity solution" href="../3d/penny_shaped_crack_tensile_T0.html" />
+    <link rel="prev" title="2d Bilby-Cottrell-Swinden-Dugdale Cohesive Crack example" href="Dugdale_crack_2DS0.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../frontmatter.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">BigWham Tutorials</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../frontmatter.html">
+                    Welcome
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Starting with BigWham</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="bigwham_first_steps_griffith.html">First Steps with BigWham</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bigwham_hmat_computational_scaling_griffith.html">Hierarchical matrix scaling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="displacements_stresses_griffith_crack_2DS0.html">Elastic fields around a Griffith crack</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">2D Examples</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="griffith_crack_problem_convergence_S0_vs_S1.html">Piece-wise constant versus piece-wise linear discretization - accuracy for uniform meshes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="finite_dislocation_2d.html">Elastic fields around a finite dislocation segment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="arc_crack_isotropic_tension.html">Arc crack under remote uniform isotropic tension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Dugdale_crack_2DS0.html">2d Bilby-Cottrell-Swinden-Dugdale Cohesive Crack example</a></li>
+
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Uniform vs non-uniform mesh size for a simple straigth crack : S0 vs S1 elements</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">3D Examples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../3d/penny_shaped_crack_tensile_T0.html">Penny-shaped (radial) crack under uniform tension - displacement discontinuity solution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3d/displacements_stresses_penny_shaped_crack_tensile.html">Elastic field around a penny-shaped (radial) crack under uniform tension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3d/penny_shaped_crack_tensile_R0.html">Penny-shaped crack under uniform tension - solution on a cartesian mesh made of square elements</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../3d/blade_crack_tensile_T0.html">Blade (rectangular) crack under uniform tension - displacement discontinuity solution</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/examples/2d/griffith_crack_non_uniform_mesh_S0_vs_S1.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Uniform vs non-uniform mesh size for a simple straigth crack : S0 vs S1 elements</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Uniform vs non-uniform mesh size for a simple straigth crack : S0 vs S1 elements</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#uniform-mesh-vs-randomized-mesh">Uniform mesh vs randomized mesh</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#uniform-vs-tip-refined">Uniform vs tip refined !</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#take-home-messages">Take home messages</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="uniform-vs-non-uniform-mesh-size-for-a-simple-straigth-crack-s0-vs-s1-elements">
+<h1>Uniform vs non-uniform mesh size for a simple straigth crack : S0 vs S1 elements<a class="headerlink" href="#uniform-vs-non-uniform-mesh-size-for-a-simple-straigth-crack-s0-vs-s1-elements" title="Link to this heading">#</a></h1>
+<p>Plane Elasticity problem
+Straight fracture in an infinite isotropic elastic medium  under uniform remote tension.</p>
+<p>We explore the effect of using a spatiallyt non-uniform mesh size as well as the order of the element - constant (s0) versus linear (S1).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># imports etc.</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">from</span> <span class="nn">bigwham4py</span> <span class="kn">import</span> <span class="n">BEMatrix</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.sparse.linalg</span> <span class="kn">import</span> <span class="n">gmres</span>
+
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s1">&#39;../..&#39;</span><span class="p">))</span>
+<span class="kn">from</span> <span class="nn">solutions.griffith_crack</span> <span class="kn">import</span> <span class="n">width_griffith</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We set the elastic properties of the medium. Note that bigwham’s input are the Young’s modulus <span class="math notranslate nohighlight">\(E\)</span> and Poisson’s ratio <span class="math notranslate nohighlight">\(\nu\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">nu</span> <span class="o">=</span> <span class="mf">0.25</span>
+<span class="n">E</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">G</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">nu</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="uniform-mesh-vs-randomized-mesh">
+<h1>Uniform mesh vs randomized mesh<a class="headerlink" href="#uniform-mesh-vs-randomized-mesh" title="Link to this heading">#</a></h1>
+<p>We define a function in order to solve the problem with a given number of elements. Either for P0 elements (constant displacement interpolation) or P1 elements (linear interpolation over the element but discontinuous between element).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">solveGriffith</span><span class="p">(</span><span class="n">nelts</span><span class="p">,</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">kernel</span> <span class="o">=</span> <span class="s2">&quot;2DS0-H&quot;</span><span class="p">,</span><span class="n">uniform</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Wrapper function to solve the Griffith problem with a given number of elements + element type&quot;&quot;&quot;</span>
+    <span class="n">coor1D</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">nelts</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="n">uniform</span><span class="p">)</span> <span class="p">:</span>
+        <span class="c1"># randomize the mesh size</span>
+        <span class="n">coor1D</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">nelts</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">h_uniform</span><span class="o">=</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="o">/</span><span class="n">nelts</span>
+        <span class="n">sampl</span> <span class="o">=</span>  <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">low</span><span class="o">=-</span><span class="mf">0.75</span><span class="o">*</span><span class="n">h_uniform</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mf">0.75</span><span class="o">*</span><span class="n">h_uniform</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">nelts</span><span class="p">,))</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">nelts</span><span class="p">):</span>
+            <span class="n">coor1D</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">coor1D</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">sampl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">coor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">coor1D</span><span class="p">,</span> <span class="n">coor1D</span> <span class="o">*</span> <span class="mf">0.0</span><span class="p">]))</span>
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fromfunction</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">:</span> <span class="n">i</span> <span class="o">+</span> <span class="n">j</span><span class="p">,</span> <span class="p">(</span><span class="n">nelts</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int_</span><span class="p">)</span>
+    <span class="c1"># H-matrix parameters - choosen here to have an accurate solution</span>
+    <span class="n">max_leaf_size</span><span class="o">=</span><span class="mi">100</span>
+    <span class="n">eta</span><span class="o">=</span><span class="mf">1.</span>
+    <span class="n">eps_aca</span><span class="o">=</span><span class="mf">1.e-5</span>
+    <span class="n">elas_prop</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">E</span><span class="p">,</span> <span class="n">nu</span><span class="p">])</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">BEMatrix</span><span class="p">(</span><span class="n">kernel</span><span class="p">,</span> <span class="n">coor</span><span class="p">,</span> <span class="n">conn</span><span class="p">,</span> <span class="n">elas_prop</span><span class="p">,</span> <span class="n">max_leaf_size</span><span class="p">,</span> <span class="n">eta</span><span class="p">,</span> <span class="n">eps_aca</span><span class="p">,</span><span class="n">n_openMP_threads</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">h</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>
+    <span class="n">jac_ilu</span><span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">H_ILU_prec</span><span class="p">()</span> <span class="c1"># we use a ILU decomposition of the full block for efficient solution via gmres</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">gmres</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span><span class="n">M</span><span class="o">=</span><span class="n">jac_ilu</span><span class="p">,</span><span class="n">rtol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">dd</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">col_pts</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">getMeshCollocationPoints</span><span class="p">()</span>
+    <span class="n">x_coor_</span><span class="o">=</span><span class="n">col_pts</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+    <span class="c1"># Crack opening displacement discontinuity from analytical solution </span>
+    <span class="c1"># note that 2DS1 segment have their solution at nodes.... </span>
+    <span class="c1"># note that 2DS1 segment have displacement disconinuity at element vertex for each element</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">kernel</span> <span class="o">==</span><span class="s2">&quot;2DS1-H&quot;</span><span class="p">):</span>
+        <span class="n">x_coor_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">nelts</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nelts</span><span class="p">):</span>
+            <span class="n">x_coor_</span><span class="p">[</span><span class="n">e</span><span class="o">*</span><span class="mi">2</span><span class="p">:</span><span class="n">e</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span><span class="o">=</span><span class="n">coor1D</span><span class="p">[</span><span class="n">conn</span><span class="p">[</span><span class="n">e</span><span class="p">]]</span>
+    <span class="n">w_true</span><span class="o">=</span><span class="n">width_griffith</span><span class="p">(</span><span class="n">x_coor_</span><span class="p">,</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">sig</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">G</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">nu</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
+    <span class="n">rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dd</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">w_true</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">w_true</span><span class="o">.</span><span class="n">size</span><span class="p">))</span>
+    <span class="n">l2rel</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">((</span><span class="n">dd</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">w_true</span><span class="p">)))</span><span class="o">/</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">w_true</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">x_coor_</span><span class="p">,</span><span class="n">dd</span><span class="p">,</span><span class="n">w_true</span><span class="p">,</span><span class="n">rmse</span><span class="p">,</span><span class="n">l2rel</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_coor_U</span><span class="p">,</span><span class="n">dd_U</span><span class="p">,</span><span class="n">w_true_U</span><span class="p">,</span><span class="n">rmse_U</span><span class="p">,</span><span class="n">l2rel_U</span> <span class="o">=</span><span class="n">solveGriffith</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">kernel</span> <span class="o">=</span> <span class="s2">&quot;2DS0-H&quot;</span><span class="p">,</span><span class="n">uniform</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">x_coor_NU</span><span class="p">,</span><span class="n">dd_NU</span><span class="p">,</span><span class="n">w_true_NU</span><span class="p">,</span><span class="n">rmse_NU</span><span class="p">,</span><span class="n">l2rel_NU</span> <span class="o">=</span><span class="n">solveGriffith</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">kernel</span> <span class="o">=</span> <span class="s2">&quot;2DS0-H&quot;</span><span class="p">,</span><span class="n">uniform</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_coor_U</span><span class="p">,</span> <span class="n">dd_U</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;-*&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_coor_NU</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">dd_NU</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]),</span> <span class="s2">&quot;-+r&quot;</span><span class="p">)</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;width(x)&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>NUM OF AVAILABLE OMP THREADS: 16
+BigWham using 8 OpenMP threads
+ Now setting things for kernel ... 2DS0-H with properties size 2
+--------------------
+Hierarchical representation creation ...
+Cluster tree creation time for the source mesh :  0
+Cluster tree creation time for the source mesh :  0
+Time for binary cluster tree construction  4e-06
+ binary cluster tree depth =0
+ Number of blocks =1
+ Number of full blocks =1
+ Number of low rank blocks =0
+Pattern Created 
+Hierarchical representation complete.
+--------------------
+Populating Hierarchical matrix ...
+ Loop on full blocks construction  
+ N full blocks 1 
+Loop on low rank blocks construction
+N low rank blocks 0
+dof_dimension: 2
+Creation of hmat done in 0.001857
+Compression ratio - 1
+Hmat object - built 
+Hierarchical matrix construction complete.
+Compression Ratio = 1, eps_aca = 1e-05, eta = 1
+Hierarchical matrix  construction time = :  0.001872
+BigWham constructed Hmat of size (30 x 2) X (30 x 2)
+--------------------
+NUM OF AVAILABLE OMP THREADS: 16
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;width(x)&#39;)
+</pre></div>
+</div>
+<img alt="../../_images/7af91342891d3065529de80a2ed2d3083b5f34e7debaf8c31f36b08bf1cfdd5a.png" src="../../_images/7af91342891d3065529de80a2ed2d3083b5f34e7debaf8c31f36b08bf1cfdd5a.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_coor_U</span><span class="p">,</span><span class="n">dd_U</span><span class="p">,</span><span class="n">w_true_U</span><span class="p">,</span><span class="n">rmse_U</span><span class="p">,</span><span class="n">l2rel_U</span> <span class="o">=</span><span class="n">solveGriffith</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">kernel</span> <span class="o">=</span> <span class="s2">&quot;2DS1-H&quot;</span><span class="p">,</span><span class="n">uniform</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">x_coor_NU</span><span class="p">,</span><span class="n">dd_NU</span><span class="p">,</span><span class="n">w_true_NU</span><span class="p">,</span><span class="n">rmse_NU</span><span class="p">,</span><span class="n">l2rel_NU</span> <span class="o">=</span><span class="n">solveGriffith</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">kernel</span> <span class="o">=</span> <span class="s2">&quot;2DS1-H&quot;</span><span class="p">,</span><span class="n">uniform</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_coor_U</span><span class="p">,</span> <span class="n">dd_U</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;-*&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_coor_NU</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">dd_NU</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]),</span> <span class="s2">&quot;-+r&quot;</span><span class="p">)</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;width(x)&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>BigWham using 8 OpenMP threads
+ Now setting things for kernel ... 2DS0-H with properties size 2
+--------------------
+Hierarchical representation creation ...
+Cluster tree creation time for the source mesh :  0
+Cluster tree creation time for the source mesh :  0
+Time for binary cluster tree construction  1e-06
+ binary cluster tree depth =0
+ Number of blocks =1
+ Number of full blocks =1
+ Number of low rank blocks =0
+Pattern Created 
+Hierarchical representation complete.
+--------------------
+Populating Hierarchical matrix ...
+ Loop on full blocks construction  
+ N full blocks 1 
+Loop on low rank blocks construction
+N low rank blocks 0
+dof_dimension: 2
+Creation of hmat done in 0.001826
+Compression ratio - 1
+Hmat object - built 
+Hierarchical matrix construction complete.
+Compression Ratio = 1, eps_aca = 1e-05, eta = 1
+Hierarchical matrix  construction time = :  0.001834
+BigWham constructed Hmat of size (30 x 2) X (30 x 2)
+--------------------
+NUM OF AVAILABLE OMP THREADS: 16
+BigWham using 8 OpenMP threads
+ Now setting things for kernel ... 2DS1-H with properties size 2
+--------------------
+Hierarchical representation creation ...
+Cluster tree creation time for the source mesh :  0
+Cluster tree creation time for the source mesh :  0
+Time for binary cluster tree construction  2e-06
+ binary cluster tree depth =0
+ Number of blocks =1
+ Number of full blocks =1
+ Number of low rank blocks =0
+Pattern Created 
+Hierarchical representation complete.
+--------------------
+Populating Hierarchical matrix ...
+ Loop on full blocks construction  
+ N full blocks 1 
+Loop on low rank blocks construction
+N low rank blocks 0
+dof_dimension: 2
+Creation of hmat done in 0.006011
+Compression ratio - 1
+Hmat object - built 
+Hierarchical matrix construction complete.
+Compression Ratio = 1, eps_aca = 1e-05, eta = 1
+Hierarchical matrix  construction time = :  0.006018
+BigWham constructed Hmat of size (60 x 2) X (60 x 2)
+--------------------
+NUM OF AVAILABLE OMP THREADS: 16
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;width(x)&#39;)
+</pre></div>
+</div>
+<img alt="../../_images/52129e06a9ec39d5d4b433f6d5833635e50151a2dd711bee03c840df82377773.png" src="../../_images/52129e06a9ec39d5d4b433f6d5833635e50151a2dd711bee03c840df82377773.png" />
+</div>
+</div>
+<p>The results are acceptable -&gt; which means that when meshing, if the size of the elements varies randomly within reasonable limits, we are ok. However, as we shall refinement is problematic</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="uniform-vs-tip-refined">
+<h1>Uniform vs tip refined !<a class="headerlink" href="#uniform-vs-tip-refined" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># a factor 2 then 2 etc. refinement as we approach the tip</span>
+<span class="n">h_coarse</span><span class="o">=</span><span class="mf">0.4</span>
+<span class="n">coor_xp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.</span><span class="p">])</span>
+<span class="n">k</span><span class="o">=</span><span class="mi">0</span>
+<span class="k">while</span> <span class="n">coor_xp</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">1.</span> <span class="p">:</span>
+    <span class="k">if</span>  <span class="n">coor_xp</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.6</span> <span class="p">:</span>
+        <span class="n">d_x</span> <span class="o">=</span> <span class="n">h_coarse</span>
+    <span class="k">elif</span> <span class="n">coor_xp</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.7</span> <span class="p">:</span>
+         <span class="n">d_x</span> <span class="o">=</span> <span class="n">h_coarse</span><span class="o">/</span><span class="mf">2.</span>
+    <span class="k">elif</span> <span class="n">coor_xp</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.8</span> <span class="p">:</span>
+         <span class="n">d_x</span> <span class="o">=</span> <span class="n">h_coarse</span><span class="o">/</span><span class="mf">4.</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">d_x</span> <span class="o">=</span> <span class="n">h_coarse</span><span class="o">/</span><span class="mf">8.</span>
+    <span class="n">coor_xp</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">coor_xp</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">coor_xp</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">+</span><span class="n">d_x</span><span class="p">]))</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    <span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span>
+
+<span class="n">coor1D</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">-</span><span class="n">coor_xp</span><span class="p">,</span><span class="n">coor_xp</span><span class="p">))</span>
+<span class="n">nelts</span><span class="o">=</span><span class="n">coor1D</span><span class="o">.</span><span class="n">size</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="n">coor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">coor1D</span><span class="p">,</span> <span class="n">coor1D</span> <span class="o">*</span> <span class="mf">0.0</span><span class="p">]))</span>
+<span class="n">conn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fromfunction</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">:</span> <span class="n">i</span> <span class="o">+</span> <span class="n">j</span><span class="p">,</span> <span class="p">(</span><span class="n">nelts</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int_</span><span class="p">)</span>
+
+<span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;2DS0-H&quot;</span>
+<span class="c1"># solution !</span>
+<span class="n">max_leaf_size</span><span class="o">=</span><span class="mi">100</span>
+<span class="n">eta</span><span class="o">=</span><span class="mf">2.</span>
+<span class="n">eps_aca</span><span class="o">=</span><span class="mf">1.e-5</span>
+<span class="n">elas_prop</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">E</span><span class="p">,</span> <span class="n">nu</span><span class="p">])</span>
+<span class="n">h</span> <span class="o">=</span> <span class="n">BEMatrix</span><span class="p">(</span><span class="n">kernel</span><span class="p">,</span> <span class="n">coor</span><span class="p">,</span> <span class="n">conn</span><span class="p">,</span> <span class="n">elas_prop</span><span class="p">,</span> <span class="n">max_leaf_size</span><span class="p">,</span> <span class="n">eta</span><span class="p">,</span> <span class="n">eps_aca</span><span class="p">,</span><span class="n">n_openMP_threads</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">h</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>
+<span class="n">jac_ilu</span><span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">H_ILU_prec</span><span class="p">()</span> <span class="c1"># we use a ILU decomposition of the full block for efficient solution via gmres</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">gmres</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span><span class="n">M</span><span class="o">=</span><span class="n">jac_ilu</span><span class="p">,</span><span class="n">rtol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">dd</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">col_pts</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">getMeshCollocationPoints</span><span class="p">()</span>
+<span class="n">x_coor_</span><span class="o">=</span><span class="n">col_pts</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+    <span class="c1"># Crack opening displacement discontinuity from analytical solution </span>
+    <span class="c1"># note that 2DP1 segment have their solution at nodes.... </span>
+    <span class="c1"># note that 2DP1 segment have displacement disconinuity at element vertex for each element</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">kernel</span> <span class="o">==</span><span class="s2">&quot;2DS1-H&quot;</span><span class="p">):</span>
+    <span class="n">x_coor_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">nelts</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nelts</span><span class="p">):</span>
+        <span class="n">x_coor_</span><span class="p">[</span><span class="n">e</span><span class="o">*</span><span class="mi">2</span><span class="p">:</span><span class="n">e</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span><span class="o">=</span><span class="n">coor1D</span><span class="p">[</span><span class="n">conn</span><span class="p">[</span><span class="n">e</span><span class="p">]]</span>
+<span class="n">w_true</span><span class="o">=</span><span class="n">width_griffith</span><span class="p">(</span><span class="n">x_coor_</span><span class="p">,</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">sig</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">G</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">nu</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>BigWham using 8 OpenMP threads
+ Now setting things for kernel ... 2DS1-H with properties size 2
+--------------------
+Hierarchical representation creation ...
+Cluster tree creation time for the source mesh :  0
+Cluster tree creation time for the source mesh :  0
+Time for binary cluster tree construction  1e-06
+ binary cluster tree depth =0
+ Number of blocks =1
+ Number of full blocks =1
+ Number of low rank blocks =0
+Pattern Created 
+Hierarchical representation complete.
+--------------------
+Populating Hierarchical matrix ...
+ Loop on full blocks construction  
+ N full blocks 1 
+Loop on low rank blocks construction
+N low rank blocks 0
+dof_dimension: 2
+Creation of hmat done in 0.006061
+Compression ratio - 1
+Hmat object - built 
+Hierarchical matrix construction complete.
+Compression Ratio = 1, eps_aca = 1e-05, eta = 1
+Hierarchical matrix  construction time = :  0.006067
+BigWham constructed Hmat of size (60 x 2) X (60 x 2)
+--------------------
+NUM OF AVAILABLE OMP THREADS: 16
+</pre></div>
+</div>
+</div>
+</div>
+<p>We compare the solution of such refinement with the solution using an uniform mesh … of course with the same unumber of element.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_coor_U</span><span class="p">,</span><span class="n">dd_U</span><span class="p">,</span><span class="n">w_true_U</span><span class="p">,</span><span class="n">rmse_U</span><span class="p">,</span><span class="n">l2rel_U</span> <span class="o">=</span><span class="n">solveGriffith</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">h</span><span class="o">.</span><span class="n">shape_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">kernel</span> <span class="o">=</span> <span class="s2">&quot;2DS0-H&quot;</span><span class="p">,</span><span class="n">uniform</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_coor_</span><span class="p">,</span> <span class="n">dd</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;-*&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_coor_U</span><span class="p">,</span> <span class="n">dd_U</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;-*&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_coor_</span><span class="p">,</span> <span class="n">w_true</span><span class="p">,</span> <span class="s2">&quot;-r&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;width(x)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;S0 Elements&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;Refined mesh&#39;</span><span class="p">,</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span><span class="s1">&#39;true&#39;</span><span class="p">]);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>BigWham using 8 OpenMP threads
+ Now setting things for kernel ... 2DS0-H with properties size 2
+--------------------
+Hierarchical representation creation ...
+Cluster tree creation time for the source mesh :  0
+Cluster tree creation time for the source mesh :  0
+Time for binary cluster tree construction  1e-06
+ binary cluster tree depth =0
+ Number of blocks =1
+ Number of full blocks =1
+ Number of low rank blocks =0
+Pattern Created 
+Hierarchical representation complete.
+--------------------
+Populating Hierarchical matrix ...
+ Loop on full blocks construction  
+ N full blocks 1 
+Loop on low rank blocks construction
+N low rank blocks 0
+dof_dimension: 2
+Creation of hmat done in 0.000487
+Compression ratio - 1
+Hmat object - built 
+Hierarchical matrix construction complete.
+Compression Ratio = 1, eps_aca = 1e-05, eta = 2
+Hierarchical matrix  construction time = :  0.000493
+BigWham constructed Hmat of size (12 x 2) X (12 x 2)
+--------------------
+NUM OF AVAILABLE OMP THREADS: 16
+</pre></div>
+</div>
+<img alt="../../_images/06e3d428bc7f58bfa298f059762aeaca7da30080c04a888231afd9ad36296e81.png" src="../../_images/06e3d428bc7f58bfa298f059762aeaca7da30080c04a888231afd9ad36296e81.png" />
+</div>
+</div>
+<p>… we see that the solution with an uniform mesh is better. Of course if the initial element size is reduced, it is better, but consistently the uniform mesh is better than the refined one.</p>
+<p>If we use 2DS1 element, we can alleviate that.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># a factor 2 then 2 etc. refinement as we approach the tip</span>
+<span class="n">h_coarse</span><span class="o">=</span><span class="mf">0.4</span>
+<span class="n">coor_xp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.</span><span class="p">])</span>
+<span class="n">k</span><span class="o">=</span><span class="mi">0</span>
+<span class="k">while</span> <span class="n">coor_xp</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">1.</span> <span class="p">:</span>
+    <span class="k">if</span>  <span class="n">coor_xp</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.6</span> <span class="p">:</span>
+        <span class="n">d_x</span> <span class="o">=</span> <span class="n">h_coarse</span>
+    <span class="k">elif</span> <span class="n">coor_xp</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.7</span> <span class="p">:</span>
+         <span class="n">d_x</span> <span class="o">=</span> <span class="n">h_coarse</span><span class="o">/</span><span class="mf">2.</span>
+    <span class="k">elif</span> <span class="n">coor_xp</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.8</span> <span class="p">:</span>
+         <span class="n">d_x</span> <span class="o">=</span> <span class="n">h_coarse</span><span class="o">/</span><span class="mf">8.</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">d_x</span> <span class="o">=</span> <span class="n">h_coarse</span><span class="o">/</span><span class="mf">8.</span>
+    <span class="n">coor_xp</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">coor_xp</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">coor_xp</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">+</span><span class="n">d_x</span><span class="p">]))</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    <span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span>
+
+<span class="n">coor1D</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">-</span><span class="n">coor_xp</span><span class="p">,</span><span class="n">coor_xp</span><span class="p">))</span>
+<span class="n">nelts</span><span class="o">=</span><span class="n">coor1D</span><span class="o">.</span><span class="n">size</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="n">coor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">coor1D</span><span class="p">,</span> <span class="n">coor1D</span> <span class="o">*</span> <span class="mf">0.0</span><span class="p">]))</span>
+<span class="n">conn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fromfunction</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">:</span> <span class="n">i</span> <span class="o">+</span> <span class="n">j</span><span class="p">,</span> <span class="p">(</span><span class="n">nelts</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int_</span><span class="p">)</span>
+
+<span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;2DS1-H&quot;</span>
+<span class="c1"># solution !</span>
+<span class="n">max_leaf_size</span><span class="o">=</span><span class="mi">100</span>
+<span class="n">eta</span><span class="o">=</span><span class="mf">2.</span>
+<span class="n">eps_aca</span><span class="o">=</span><span class="mf">1.e-5</span>
+<span class="n">elas_prop</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">E</span><span class="p">,</span> <span class="n">nu</span><span class="p">])</span>
+<span class="n">h</span> <span class="o">=</span> <span class="n">BEMatrix</span><span class="p">(</span><span class="n">kernel</span><span class="p">,</span> <span class="n">coor</span><span class="p">,</span> <span class="n">conn</span><span class="p">,</span> <span class="n">elas_prop</span><span class="p">,</span> <span class="n">max_leaf_size</span><span class="p">,</span> <span class="n">eta</span><span class="p">,</span> <span class="n">eps_aca</span><span class="p">)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">h</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>
+<span class="n">jac_ilu</span><span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">H_ILU_prec</span><span class="p">()</span> <span class="c1"># we use a ILU decomposition of the full block for efficient solution via gmres</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">gmres</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span><span class="n">M</span><span class="o">=</span><span class="n">jac_ilu</span><span class="p">,</span><span class="n">rtol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">dd</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">col_pts</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">getMeshCollocationPoints</span><span class="p">()</span>
+<span class="n">x_coor_</span><span class="o">=</span><span class="n">col_pts</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+    <span class="c1"># Crack opening displacement discontinuity from analytical solution </span>
+    <span class="c1"># note that 2DP1 segment have their solution at nodes.... </span>
+    <span class="c1"># note that 2DP1 segment have displacement disconinuity at element vertex for each element</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">kernel</span> <span class="o">==</span><span class="s2">&quot;2DS1-H&quot;</span><span class="p">):</span>
+    <span class="n">x_coor_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">nelts</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nelts</span><span class="p">):</span>
+        <span class="n">x_coor_</span><span class="p">[</span><span class="n">e</span><span class="o">*</span><span class="mi">2</span><span class="p">:</span><span class="n">e</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span><span class="o">=</span><span class="n">coor1D</span><span class="p">[</span><span class="n">conn</span><span class="p">[</span><span class="n">e</span><span class="p">]]</span>
+<span class="n">w_true</span><span class="o">=</span><span class="n">width_griffith</span><span class="p">(</span><span class="n">x_coor_</span><span class="p">,</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">sig</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">G</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">nu</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
+
+<span class="n">x_coor_U</span><span class="p">,</span><span class="n">dd_U</span><span class="p">,</span><span class="n">w_true_U</span><span class="p">,</span><span class="n">rmse_U</span><span class="p">,</span><span class="n">l2rel_U</span> <span class="o">=</span><span class="n">solveGriffith</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">h</span><span class="o">.</span><span class="n">shape_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="mi">4</span><span class="p">),</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">kernel</span> <span class="o">=</span> <span class="s2">&quot;2DS1-H&quot;</span><span class="p">,</span><span class="n">uniform</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_coor_</span><span class="p">,</span> <span class="n">dd</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;-*&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_coor_U</span><span class="p">,</span> <span class="n">dd_U</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;-*&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_coor_</span><span class="p">,</span> <span class="n">w_true</span><span class="p">,</span> <span class="s2">&quot;-r&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;width(x)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;Refined mesh&#39;</span><span class="p">,</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span><span class="s1">&#39;true&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;S1 Elements&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>BigWham using 8 OpenMP threads
+ Now setting things for kernel ... 2DS0-H with properties size 2
+--------------------
+Hierarchical representation creation ...
+Cluster tree creation time for the source mesh :  0
+Cluster tree creation time for the source mesh :  0
+Time for binary cluster tree construction  1e-06
+ binary cluster tree depth =0
+ Number of blocks =1
+ Number of full blocks =1
+ Number of low rank blocks =0
+Pattern Created 
+Hierarchical representation complete.
+--------------------
+Populating Hierarchical matrix ...
+ Loop on full blocks construction  
+ N full blocks 1 
+Loop on low rank blocks construction
+N low rank blocks 0
+dof_dimension: 2
+Creation of hmat done in 0.000411
+Compression ratio - 1
+Hmat object - built 
+Hierarchical matrix construction complete.
+Compression Ratio = 1, eps_aca = 1e-05, eta = 1
+Hierarchical matrix  construction time = :  0.000418
+BigWham constructed Hmat of size (12 x 2) X (12 x 2)
+--------------------
+NUM OF AVAILABLE OMP THREADS: 16
+BigWham using 8 OpenMP threads
+ Now setting things for kernel ... 2DS1-H with properties size 2
+--------------------
+Hierarchical representation creation ...
+Cluster tree creation time for the source mesh :  0
+Cluster tree creation time for the source mesh :  0
+Time for binary cluster tree construction  1e-06
+ binary cluster tree depth =0
+ Number of blocks =1
+ Number of full blocks =1
+ Number of low rank blocks =0
+Pattern Created 
+Hierarchical representation complete.
+--------------------
+Populating Hierarchical matrix ...
+ Loop on full blocks construction  
+ N full blocks 1 
+Loop on low rank blocks construction
+N low rank blocks 0
+dof_dimension: 2
+Creation of hmat done in 0.00123
+Compression ratio - 1
+Hmat object - built 
+Hierarchical matrix construction complete.
+Compression Ratio = 1, eps_aca = 1e-05, eta = 2
+Hierarchical matrix  construction time = :  0.001237
+BigWham constructed Hmat of size (24 x 2) X (24 x 2)
+--------------------
+NUM OF AVAILABLE OMP THREADS: 16
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/bricelecampion/ClionProjects/BigWham-Tutorials/examples/2d/../../solutions/griffith_crack.py:39: RuntimeWarning: invalid value encountered in sqrt
+  return (sig*2*(1-nu)/G)*np.sqrt(a*a-x*x)
+</pre></div>
+</div>
+<img alt="../../_images/77c13fd5fd7a536d2080f26684938415c978d268f549155868c50fa815305a81.png" src="../../_images/77c13fd5fd7a536d2080f26684938415c978d268f549155868c50fa815305a81.png" />
+</div>
+</div>
+<section id="take-home-messages">
+<h2>Take home messages<a class="headerlink" href="#take-home-messages" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Small variation of element sizes (within an average uniform mesh size) are acceptable for S0 elements (S1 are better though) - here the mesh size is ‘still’ roughly uniform over the domain,</p></li>
+<li><p>Refinement toward the tip by decreasing mesh size by 2 results in globally poorer results for S0 elements compared to uniform mesh. However, with S1 elements, refinement yields  very good results.</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./examples/2d"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Dugdale_crack_2DS0.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">2d Bilby-Cottrell-Swinden-Dugdale Cohesive Crack example</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../3d/penny_shaped_crack_tensile_T0.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Penny-shaped (radial) crack under uniform tension - displacement discontinuity solution</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Uniform vs non-uniform mesh size for a simple straigth crack : S0 vs S1 elements</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#uniform-mesh-vs-randomized-mesh">Uniform mesh vs randomized mesh</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#uniform-vs-tip-refined">Uniform vs tip refined !</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#take-home-messages">Take home messages</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Brice Lecampion
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <p>
+© Copyright 2025.
+</p>   
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
