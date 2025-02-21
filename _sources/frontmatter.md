@@ -34,6 +34,7 @@ title = {{BigWham Tutorials}},
 month = feb,
 version = {0.1.0},
 doi = {10.5281/zenodo.14906711},
+url = {https://geoenergylab-epfl.github.io/Bigwham-Tutorials/},
 year = {2025}
 }
 ```

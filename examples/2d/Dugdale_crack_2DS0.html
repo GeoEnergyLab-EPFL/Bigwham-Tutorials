@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>2d Bilby-Cottrell-Swinden-Dugdale Cohesive Crack example &#8212; BigWham Tutorials</title>
+    <title>2d Dugdale Cohesive Crack example &#8212; BigWham Tutorials</title>
   
   
   
@@ -176,7 +176,7 @@
 <li class="toctree-l1"><a class="reference internal" href="griffith_crack_problem_convergence_S0_vs_S1.html">Piece-wise constant versus piece-wise linear discretization - accuracy for uniform meshes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="finite_dislocation_2d.html">Elastic fields around a finite dislocation segment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="arc_crack_isotropic_tension.html">Arc crack under remote uniform isotropic tension</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">2d Bilby-Cottrell-Swinden-Dugdale Cohesive Crack example</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">2d Dugdale Cohesive Crack example</a></li>
 
 
 <li class="toctree-l1"><a class="reference internal" href="griffith_crack_non_uniform_mesh_S0_vs_S1.html">Uniform vs non-uniform mesh size for a simple straigth crack : S0 vs S1 elements</a></li>
@@ -326,7 +326,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>2d Bilby-Cottrell-Swinden-Dugdale Cohesive Crack example</h1>
+    <h1>2d Dugdale Cohesive Crack example</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -336,7 +336,7 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">2d Bilby-Cottrell-Swinden-Dugdale Cohesive Crack example</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">2d Dugdale Cohesive Crack example</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prescribing-the-displacement-discontinuity-solution-checking-the-resulting-traction">Prescribing the displacement discontinuity solution / checking the resulting traction</a></li>
 </ul>
 </li>
@@ -357,8 +357,8 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="d-bilby-cottrell-swinden-dugdale-cohesive-crack-example">
-<h1>2d Bilby-Cottrell-Swinden-Dugdale Cohesive Crack example<a class="headerlink" href="#d-bilby-cottrell-swinden-dugdale-cohesive-crack-example" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="d-dugdale-cohesive-crack-example">
+<h1>2d Dugdale Cohesive Crack example<a class="headerlink" href="#d-dugdale-cohesive-crack-example" title="Link to this heading">#</a></h1>
 <p>Plane-Elasticity example - using segment element with constant displacement discontinuity elements (kernel ‘2DS0-H’).</p>
 <p>We investigate the case of cohesive crack with a rectangular (Dugdale/Barenblatt type) traction separation law under uniform remote tension <span class="math notranslate nohighlight">\(\sigma_A\)</span>.
 The corresponding normal traction for the BCSD crack is given as
@@ -578,7 +578,7 @@ Calculated pressure between |x| =  1.0  and  1.3054072893322786  is =  -0.552658
 Pressure between |x| =  1.0  and  1.3054072893322786  is =  0.5555555555555556
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f89d18847c0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f7a883f5f30&gt;
 </pre></div>
 </div>
 <img alt="../../_images/d61f84b835b8c469ba0eb834abbac12c53575f5495563aebd57357b3b143c33e.png" src="../../_images/d61f84b835b8c469ba0eb834abbac12c53575f5495563aebd57357b3b143c33e.png" />
@@ -648,13 +648,13 @@ Pressure between |x| =  1.0  and  1.3054072893322786  is =  0.5555555555555556
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>L2 Rel error 0.340651021557473BigWham using 8 OpenMP threads
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>BigWham using 8 OpenMP threads
  Now setting things for kernel ... 2DS0-H with properties size 2
 --------------------
 Hierarchical representation creation ...
 Cluster tree creation time for the source mesh :  0
 Cluster tree creation time for the source mesh :  0
-Time for binary cluster tree construction  4e-06
+Time for binary cluster tree construction  5e-06
  binary cluster tree depth =0
  Number of blocks =1
  Number of full blocks =1
@@ -668,24 +668,25 @@ Populating Hierarchical matrix ...
 Loop on low rank blocks construction
 N low rank blocks 0
 dof_dimension: 2
-Creation of hmat done in 0.005914
+Creation of hmat done in 0.010035
 Compression ratio - 1
 Hmat object - built 
 Hierarchical matrix construction complete.
 Compression Ratio = 1, eps_aca = 1e-05, eta = 3
-Hierarchical matrix  construction time = :  0.005931
+Hierarchical matrix  construction time = :  0.010053
 BigWham constructed Hmat of size (60 x 2) X (60 x 2)
 --------------------
 NUM OF AVAILABLE OMP THREADS: 16
-
+L2 Rel error 0.340651021557473
 L2 Rel error 0.14298168129296
+L2 Rel error 0.04709568447731429
 BigWham using 8 OpenMP threads
  Now setting things for kernel ... 2DS0-H with properties size 2
 --------------------
 Hierarchical representation creation ...
 Cluster tree creation time for the source mesh :  0
 Cluster tree creation time for the source mesh :  0
-Time for binary cluster tree construction  0
+Time for binary cluster tree construction  1e-06
  binary cluster tree depth =0
  Number of blocks =1
  Number of full blocks =0
@@ -699,43 +700,13 @@ Populating Hierarchical matrix ...
 Loop on low rank blocks construction
 N low rank blocks 1
 dof_dimension: 2
-Creation of hmat done in 0.001491
+Creation of hmat done in 0.00865
 Compression ratio - 2
 Hmat object - built 
 Hierarchical matrix construction complete.
 Compression Ratio = 2, eps_aca = 0.0001, eta = 3
-Hierarchical matrix  construction time = :  0.001502
+Hierarchical matrix  construction time = :  0.008661
 BigWham constructed Hmat of size (1 x 2) X (1 x 2)
---------------------
-NUM OF AVAILABLE OMP THREADS: 16
-L2 Rel error 0.04709568447731429
-BigWham using 8 OpenMP threads
- Now setting things for kernel ... 2DS0-H with properties size 2
---------------------
-Hierarchical representation creation ...
-Cluster tree creation time for the source mesh :  0
-Cluster tree creation time for the source mesh :  0
-Time for binary cluster tree construction  0
- binary cluster tree depth =0
- Number of blocks =1
- Number of full blocks =1
- Number of low rank blocks =0
-Pattern Created 
-Hierarchical representation complete.
---------------------
-Populating Hierarchical matrix ...
- Loop on full blocks construction  
- N full blocks 1 
-Loop on low rank blocks construction
-N low rank blocks 0
-dof_dimension: 2
-Creation of hmat done in 0.000401
-Compression ratio - 1
-Hmat object - built 
-Hierarchical matrix construction complete.
-Compression Ratio = 1, eps_aca = 0.0001, eta = 3
-Hierarchical matrix  construction time = :  0.000407
-BigWham constructed Hmat of size (10 x 2) X (10 x 2)
 --------------------
 NUM OF AVAILABLE OMP THREADS: 16
 BigWham using 8 OpenMP threads
@@ -758,12 +729,41 @@ Populating Hierarchical matrix ...
 Loop on low rank blocks construction
 N low rank blocks 0
 dof_dimension: 2
-Creation of hmat done in 0.016223
+Creation of hmat done in 0.00036
 Compression ratio - 1
 Hmat object - built 
 Hierarchical matrix construction complete.
 Compression Ratio = 1, eps_aca = 0.0001, eta = 3
-Hierarchical matrix  construction time = :  0.01623
+Hierarchical matrix  construction time = :  0.000367
+BigWham constructed Hmat of size (10 x 2) X (10 x 2)
+--------------------
+NUM OF AVAILABLE OMP THREADS: 16
+BigWham using 8 OpenMP threads
+ Now setting things for kernel ... 2DS0-H with properties size 2
+--------------------
+Hierarchical representation creation ...
+Cluster tree creation time for the source mesh :  0
+Cluster tree creation time for the source mesh :  0
+Time for binary cluster tree construction  2e-06
+ binary cluster tree depth =0
+ Number of blocks =1
+ Number of full blocks =1
+ Number of low rank blocks =0
+Pattern Created 
+Hierarchical representation complete.
+--------------------
+Populating Hierarchical matrix ...
+ Loop on full blocks construction  
+ N full blocks 1 
+Loop on low rank blocks construction
+N low rank blocks 0
+dof_dimension: 2
+Creation of hmat done in 0.01626
+Compression ratio - 1
+Hmat object - built 
+Hierarchical matrix construction complete.
+Compression Ratio = 1, eps_aca = 0.0001, eta = 3
+Hierarchical matrix  construction time = :  0.016269
 BigWham constructed Hmat of size (100 x 2) X (100 x 2)
 --------------------
 NUM OF AVAILABLE OMP THREADS: 16
@@ -774,7 +774,7 @@ BigWham using 8 OpenMP threads
 Hierarchical representation creation ...
 Cluster tree creation time for the source mesh :  0
 Cluster tree creation time for the source mesh :  0
-Time for binary cluster tree construction  0.000221
+Time for binary cluster tree construction  0.000229
  binary cluster tree depth =4
  Number of blocks =112
  Number of full blocks =46
@@ -788,19 +788,18 @@ Populating Hierarchical matrix ...
 Loop on low rank blocks construction
 N low rank blocks 66
 dof_dimension: 2
-Creation of hmat done in 0.087169
+Creation of hmat done in 0.111891
 Compression ratio - 0.239186
 Hmat object - built 
 Hierarchical matrix construction complete.
 Compression Ratio = 0.239186, eps_aca = 0.0001, eta = 3
-Hierarchical matrix  construction time = :  0.087181
+Hierarchical matrix  construction time = :  0.111904
 BigWham constructed Hmat of size (1000 x 2) X (1000 x 2)
 --------------------
-NUM OF AVAILABLE OMP
+NUM OF AVAILABLE OMP THREADS: 16
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> THREADS: 16
-L2 Rel error 0.004727695970546321
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>L2 Rel error 0.004727695970546321
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>BigWham using 8 OpenMP threads
@@ -809,7 +808,7 @@ L2 Rel error 0.004727695970546321
 Hierarchical representation creation ...
 Cluster tree creation time for the source mesh :  0
 Cluster tree creation time for the source mesh :  0
-Time for binary cluster tree construction  0.004389
+Time for binary cluster tree construction  0.004421
  binary cluster tree depth =7
  Number of blocks =1102
  Number of full blocks =382
@@ -823,16 +822,16 @@ Populating Hierarchical matrix ...
 Loop on low rank blocks construction
 N low rank blocks 720
 dof_dimension: 2
-Creation of hmat done in 1.26825
+Creation of hmat done in 1.3417
 Compression ratio - 0.0373597
 Hmat object - built 
 Hierarchical matrix construction complete.
 Compression Ratio = 0.0373597, eps_aca = 0.0001, eta = 3
-Hierarchical matrix  construction time = :  1.26828
+Hierarchical matrix  construction time = :  1.34173
 BigWham constructed Hmat of size (10000 x 2) X (10000 x 2)
 --------------------
 NUM OF AVAILABLE OMP THREADS: 16
-L2 Rel error 0.001495073947955563
+L2 Rel error 0.0014950739479555634
 </pre></div>
 </div>
 </div>
@@ -893,7 +892,7 @@ L2 Rel error 0.001495073947955563
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1.0, 0.1, 0.01, 0.001, 0.0001, 1e-05]
-[0.340651021557473, 0.14298168129296, 0.04709568447731429, 0.014946281372668653, 0.004727695970546321, 0.001495073947955563]
+[0.340651021557473, 0.14298168129296, 0.04709568447731429, 0.014946281372668653, 0.004727695970546321, 0.0014950739479555634]
 0.4994838931808649
 -0.7543263091404309
 </pre></div>
@@ -921,7 +920,7 @@ L2 Rel error 0.001495073947955563
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/96de9e69eb3c68e5ff94838b0aab5cdff41ae13a96b1e4f35cfa1773f20391b8.png" src="../../_images/96de9e69eb3c68e5ff94838b0aab5cdff41ae13a96b1e4f35cfa1773f20391b8.png" />
+<img alt="../../_images/ad8f754bd382198e68caf264141293aa78ba70e0f20b66036531d7a0ee0c5eb6.png" src="../../_images/ad8f754bd382198e68caf264141293aa78ba70e0f20b66036531d7a0ee0c5eb6.png" />
 </div>
 </div>
 </section>
@@ -992,7 +991,7 @@ L2 Rel error 0.001495073947955563
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">2d Bilby-Cottrell-Swinden-Dugdale Cohesive Crack example</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">2d Dugdale Cohesive Crack example</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prescribing-the-displacement-discontinuity-solution-checking-the-resulting-traction">Prescribing the displacement discontinuity solution / checking the resulting traction</a></li>
 </ul>
 </li>
