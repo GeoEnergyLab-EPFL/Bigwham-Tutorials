@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use these tutorials, please cite them."
+authors:
+  - family-names: Lecampion
+    given-names: Brice
+    orcid: https://orcid.org/0000-0001-9201-6592
+title: "BigWham Tutorials"
+version: 0.1.0
+identifiers:
+  - type: doi
+    value: 
+date-released: 2025-02-21
