@@ -28,14 +28,13 @@ If you find these tutorials useful for your  work, please consider citing them u
 
 
 ```
-@software{Leca25,
-  author       = {Lecampion, Brice},
-  title        = {{BigWham tutorials}},
-  month        = March,
-  year         = 2025,
-  publisher    = {Zenodo},
-  version      = {v0.1},
-  doi          = { },
-  url          = { }
+@software{Lecampion_BigWham_Tutorials_2025,
+author = {Lecampion, Brice},
+title = {{BigWham Tutorials}},
+month = feb,
+version = {0.1.0},
+doi = {10.5281/zenodo.14906711},
+url = {https://geoenergylab-epfl.github.io/Bigwham-Tutorials/},
+year = {2025}
 }
 ```

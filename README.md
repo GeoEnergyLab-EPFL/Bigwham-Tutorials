@@ -7,7 +7,7 @@
 {{today}}
 ```
 
-Online book is available at:
+The online book is available at: [BigWham-Tutorials](https://geoenergylab-epfl.github.io/Bigwham-Tutorials/)
 
 
 The goal of this repository is to provide jupyter notebooks with examples of use of BigWham - a collocation boundary element library element for fracture problems using a hierarchical matrix representation.
