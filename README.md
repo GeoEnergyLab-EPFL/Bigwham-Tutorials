@@ -1,6 +1,8 @@
 # BigWham Tutorials
 ### Brice Lecampion
 #### 
+[![DOI](https://zenodo.org/badge/758603082.svg)](https://doi.org/10.5281/zenodo.14906710)
+
 ```
 {{today}}
 ```

@@ -24,6 +24,9 @@ This book is organized in the following different parts.
 
 If you find these tutorials useful for your  work, please consider citing them using the following Zenodo DOI:
 
+[![DOI](https://zenodo.org/badge/758603082.svg)](https://doi.org/10.5281/zenodo.14906710)
+
+
 ```
 @software{Leca25,
   author       = {Lecampion, Brice},
