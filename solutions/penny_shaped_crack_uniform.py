@@ -584,11 +584,11 @@ def stresses_shear_penny_shaped(x,y,z,a=1.0,T_x=1.0,T_y=1.0,G=1.,nu=0.25):
        sxx,syy,szz,sxy,sxz,syz (tuple of np.array): component of the stress tensor in  Cartesian coordinates
     """
     s_xx = Sig_xx_sl_(x,y,z,a,G,nu,T_x,T_y)
-    s_yy = Sig_yy_nl_(x,y,z,a,G,nu,T_x,T_y)
-    s_zz = Sig_zz_nl_(x,y,z,a,G,nu,T_x,T_y)
-    s_xy = Sig_xy_nl_(x,y,z,a,G,nu,T_x,T_y)
-    s_xz = Sig_zx_nl_(x,y,z,a,G,nu,T_x,T_y)
-    s_yz = Sig_zy_nl_(x,y,z,a,G,nu,T_x,T_y)
+    s_yy = Sig_yy_sl_(x,y,z,a,G,nu,T_x,T_y)
+    s_zz = Sig_zz_sl_(x,y,z,a,G,nu,T_x,T_y)
+    s_xy = Sig_xy_sl_(x,y,z,a,G,nu,T_x,T_y)
+    s_xz = Sig_zx_sl_(x,y,z,a,G,nu,T_x,T_y)
+    s_yz = Sig_zy_sl_(x,y,z,a,G,nu,T_x,T_y)
     return s_xx,s_yy,s_zz,s_xy,s_xz,s_yz
 
 
